@@ -1,17 +1,8 @@
 {
-  "item.quantummod1.citrine": "Citrine",
-  "item.quantummod1.raw_citrine": "Raw Citrine",
-  "item.quantummod1.dowsing_rod": "Dowsing Rod",
   "item.quantummod1.measurement": "Measurement",
 
-  "block.quantummod1.citrine_block": "Citrine Block",
-  "block.quantummod1.raw_citrine_block": "Raw Citrine Block",
-  "block.quantummod1.citrine_ore": "Citrine Ore",
-  "block.quantummod1.speedy_block": "Speedy Block",
   "block.quantummod1.qubit_block": "Qubit Block",
   "block.quantummod1.quantum_dust": "Quantum Dust",
   "block.quantummod1.hadamard_block": "Hadamard Block",
-  "block.quantummod1.not_block": "Not Block",
-
-  "item.quantummod1.dowsing_rod.no_valuables": "No Valuables Found!"
+  "block.quantummod1.not_block": "Not Block"
 }

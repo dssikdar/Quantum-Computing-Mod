@@ -1,6 +1,0 @@
-{
-  "parent": "block/cube_all",
-  "textures": {
-    "all": "quantummod1:block/speedy_block"
-  }
-}

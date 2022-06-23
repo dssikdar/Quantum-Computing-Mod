@@ -21,22 +21,6 @@ public class ModBlocks {
     public static final DeferredRegister<Block> BLOCKS =
             DeferredRegister.create(ForgeRegistries.BLOCKS, QuantumMod1.MOD_ID);
 
-    public static final RegistryObject<Block> CITRINE_BLOCK = registerBlock("citrine_block",
-            () -> new Block(BlockBehaviour.Properties.of(Material.METAL)
-                    .strength(9f).requiresCorrectToolForDrops()),CreativeModeTab.TAB_MISC);
-
-    public static final RegistryObject<Block> RAW_CITRINE_BLOCK = registerBlock("raw_citrine_block",
-            () -> new Block(BlockBehaviour.Properties.of(Material.METAL)
-                    .strength(7f).requiresCorrectToolForDrops()),CreativeModeTab.TAB_MISC);
-
-    public static final RegistryObject<Block> CITRINE_ORE = registerBlock("citrine_ore",
-            () -> new Block(BlockBehaviour.Properties.of(Material.STONE)
-                    .strength(5f).requiresCorrectToolForDrops()),CreativeModeTab.TAB_MISC);
-
-    public static final RegistryObject<Block> SPEEDY_BLOCK = registerBlock("speedy_block",
-            () -> new SpeedyBlock(BlockBehaviour.Properties.of(Material.STONE)
-                    .strength(4f).requiresCorrectToolForDrops()),CreativeModeTab.TAB_MISC);
-
     public static final RegistryObject<Block> QUBIT_BLOCK = registerBlock("qubit_block",
             () -> new QubitBlock(BlockBehaviour.Properties.of(Material.STONE)
                     .strength(6f).requiresCorrectToolForDrops()),CreativeModeTab.TAB_MISC);
