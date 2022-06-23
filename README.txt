@@ -1,3 +1,6 @@
+***Quantum Software Minecraft Mod***
+
+-------------------------------------------
 
 Source installation information for modders
 -------------------------------------------
