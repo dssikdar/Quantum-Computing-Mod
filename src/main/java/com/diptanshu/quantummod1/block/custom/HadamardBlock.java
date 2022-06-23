@@ -16,15 +16,12 @@ public class HadamardBlock extends Block {
     double k = 1/(Math.sqrt(2));
     double[][] hadamardMatrix = { {k, k}, {k, -k}};
 
-    public static double[] qstate = QubitBlock.stateVector;
-
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {
 
         BlockPos positionClicked = pContext.getClickedPos();
         Player player = pContext.getPlayer();
 
-        /**
         Block surroundingBlock = pContext.getLevel().getBlockState(positionClicked.north(1)).getBlock();
 
         int count = 2;
@@ -33,13 +30,7 @@ public class HadamardBlock extends Block {
             count += 1;
         }
 
-        if (surroundingBlock instanceof QubitBlock) {
-            player.sendMessage(new TextComponent("Hello"), player.getUUID());
-            QubitBlock newBloch = QubitBlock.class.cast(surroundingBlock);
-            qstate = matrixMult(hadamardMatrix, qstate);
-            player.sendMessage(new TextComponent((Math.pow(qstate[0],2)*100) + "% 0  AND  " + (Math.pow(qstate[1],2)*100) + "% 1"), player.getUUID());
-        }
-         */
+        double[] qstate = ((QubitBlock) surroundingBlock).returnQState();
 
         qstate = matrixMult(hadamardMatrix, qstate);
         player.sendMessage(new TextComponent((Math.pow(qstate[0],2)*100) + "% 0  AND  " + (Math.pow(qstate[1],2)*100) + "% 1"), player.getUUID());
@@ -69,7 +60,9 @@ public class HadamardBlock extends Block {
         return resultant;
     }
 
+    /**
     public static double[] returnQState() {
         return qstate;
     }
+     */
 }

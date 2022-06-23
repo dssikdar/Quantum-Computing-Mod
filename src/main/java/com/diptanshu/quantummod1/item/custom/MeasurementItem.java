@@ -9,14 +9,13 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.block.Block;
 
-
 public class MeasurementItem extends Item
 {
     public MeasurementItem(Properties pProperties) {
         super(pProperties);
     }
 
-    public static double[] qstate = QubitBlock.stateVector;
+    //public static double[] qstate = QubitBlock.stateVector;
 
     @Override
     public InteractionResult useOn(UseOnContext pContext) {
@@ -29,9 +28,9 @@ public class MeasurementItem extends Item
             Block block = pContext.getLevel().getBlockState(positionClicked).getBlock();
             if (block instanceof QubitBlock) {
                 // player.sendMessage(new TextComponent("Hello"), player.getUUID());
-                QubitBlock newBloch = QubitBlock.class.cast(block);
-                if (checkBornRule(newBloch)) {
-                    outputQuantumState(newBloch.stateVector, player);
+                QubitBlock newBlock = QubitBlock.class.cast(block);
+                if (checkBornRule(newBlock)) {
+                    outputQuantumState(newBlock, player);
                 }
             }
         }
@@ -41,6 +40,7 @@ public class MeasurementItem extends Item
 
     private boolean checkBornRule(QubitBlock bloch) {
         double threshold = 0.0001;
+        double[] qstate = bloch.returnQState();
         double sum = 0.0;
         for (int i=0; i<qstate.length; i++) {
             for (int j=0; j<qstate.length; j++) {
@@ -55,7 +55,8 @@ public class MeasurementItem extends Item
         }
     }
 
-    private void outputQuantumState(double[] qstate, Player player) {
+    private void outputQuantumState(QubitBlock bloch, Player player) {
+        double[] qstate = bloch.returnQState();
         player.sendMessage(new TextComponent((Math.pow(qstate[0],2)*100) + "% 0  AND  " + (Math.pow(qstate[1],2)*100) + "% 1"), player.getUUID());
     }
 }

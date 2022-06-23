@@ -1,5 +1,6 @@
 package com.diptanshu.quantummod1.block.custom;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -7,22 +8,31 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class NotBlock extends QubitBlock {
-    public NotBlock(BlockBehaviour.Properties properties) {
+public class NotBlock extends Block {
+    public NotBlock(Properties properties) {
         super(properties);
     }
 
     double[][] xMatrix = { {0.0, 1.0}, {1.0, 0.0}};
 
-    public static double[] qstate = QubitBlock.stateVector;
-
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {
 
+        BlockPos positionClicked = pContext.getClickedPos();
         Player player = pContext.getPlayer();
 
+        Block surroundingBlock = pContext.getLevel().getBlockState(positionClicked.north(1)).getBlock();
+
+        int count = 2;
+        while (!(surroundingBlock instanceof QubitBlock)) {
+            surroundingBlock = pContext.getLevel().getBlockState(positionClicked.north(count)).getBlock();
+            count += 1;
+        }
+
+        double[] qstate = ((QubitBlock) surroundingBlock).returnQState();
         qstate = matrixMult(xMatrix, qstate);
         player.sendMessage(new TextComponent((Math.pow(qstate[0],2)*100) + "% 0  AND  " + (Math.pow(qstate[1],2)*100) + "% 1"), player.getUUID());
+        returnQState(qstate);
 
         return super.getStateForPlacement(pContext);
     }
@@ -41,9 +51,7 @@ public class NotBlock extends QubitBlock {
         return resultant;
     }
 
-    /**
-    public double[] returnQState() {
+    public double[] returnQState(double[]  qstate) {
         return qstate;
     }
-     */
 }

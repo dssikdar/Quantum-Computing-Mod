@@ -13,13 +13,9 @@ public class QubitBlock extends Block {
         super(properties);
     }
 
-    public static double alpha = 0.0;
+    public static double alpha = 1.0;
     public static double beta = Math.sqrt(1-Math.pow(alpha,2));
     public static double[] stateVector = {alpha, beta};
-
-    public void setInitQuantumState() {
-        alpha = 0.0;
-    }
 
     public double[] multByAmplitude (double amplitude, double[] state) {
         for (int i=0; i<state.length; i++) {
@@ -31,5 +27,4 @@ public class QubitBlock extends Block {
     public double[] returnQState() {
         return stateVector;
     }
-
 }
