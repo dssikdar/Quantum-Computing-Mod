@@ -23,8 +23,8 @@ public class HadamardBlock extends Block {
 
         BlockPos positionClicked = pContext.getClickedPos();
         Player player = pContext.getPlayer();
-        //player.sendMessage(new TextComponent("Hola"), player.getUUID());
 
+        /**
         Block surroundingBlock = pContext.getLevel().getBlockState(positionClicked.north(1)).getBlock();
 
         int count = 2;
@@ -33,19 +33,16 @@ public class HadamardBlock extends Block {
             count += 1;
         }
 
-        //if (surroundingBlock instanceof Bloch) {
-            //player.sendMessage(new TextComponent("Hello"), player.getUUID());
-            //Bloch newBloch = Bloch.class.cast(surroundingBlock);
-            //qstate = newBloch.quantumState;
-            //double[][] finalQuantumState = {{1,0}, {0,1}};
-            //finalQuantumState[0] = matrixMult(hadamardMatrix, scalarMult(qstate[0], ketZero));
-            //finalQuantumState[1] = matrixMult(hadamardMatrix, scalarMult(qstate[1], ketOne));
-            //finalQuantumState[0] = matrixMult(hadamardMatrix, qstate[0]);
-            //finalQuantumState[1] = matrixMult(hadamardMatrix, qstate[1]);
+        if (surroundingBlock instanceof QubitBlock) {
+            player.sendMessage(new TextComponent("Hello"), player.getUUID());
+            QubitBlock newBloch = QubitBlock.class.cast(surroundingBlock);
+            qstate = matrixMult(hadamardMatrix, qstate);
+            player.sendMessage(new TextComponent((Math.pow(qstate[0],2)*100) + "% 0  AND  " + (Math.pow(qstate[1],2)*100) + "% 1"), player.getUUID());
+        }
+         */
+
         qstate = matrixMult(hadamardMatrix, qstate);
-            //player.sendMessage(new TextComponent(finalQuantumState[0][0] + " |0> + " + finalQuantumState[0][1]+ " |1> + " + finalQuantumState[1][0] + " |0> + " + finalQuantumState[1][1] + " |1>"), player.getUUID());
         player.sendMessage(new TextComponent((Math.pow(qstate[0],2)*100) + "% 0  AND  " + (Math.pow(qstate[1],2)*100) + "% 1"), player.getUUID());
-        //}
 
         return super.getStateForPlacement(pContext);
     }

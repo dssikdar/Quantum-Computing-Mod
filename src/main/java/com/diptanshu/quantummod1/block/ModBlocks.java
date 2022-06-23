@@ -27,14 +27,14 @@ public class ModBlocks {
 
     public static final RegistryObject<Block> QUANTUM_DUST = registerBlock("quantum_dust",
             () -> new QuantumDust(BlockBehaviour.Properties.of(Material.POWDER_SNOW)
+                    .strength(3f).requiresCorrectToolForDrops()),CreativeModeTab.TAB_MISC);
+
+    public static final RegistryObject<Block> NOT_BLOCK = registerBlock("not_block",
+            () -> new NotBlock(BlockBehaviour.Properties.of(Material.STONE)
                     .strength(6f).requiresCorrectToolForDrops()),CreativeModeTab.TAB_MISC);
 
     public static final RegistryObject<Block> HADAMARD_BLOCK = registerBlock("hadamard_block",
             () -> new HadamardBlock(BlockBehaviour.Properties.of(Material.STONE)
-                    .strength(6f).requiresCorrectToolForDrops()),CreativeModeTab.TAB_MISC);
-
-    public static final RegistryObject<Block> NOT_BLOCK = registerBlock("not_block",
-            () -> new NotBlock(BlockBehaviour.Properties.of(Material.STONE)
                     .strength(6f).requiresCorrectToolForDrops()),CreativeModeTab.TAB_MISC);
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block, CreativeModeTab tab) {

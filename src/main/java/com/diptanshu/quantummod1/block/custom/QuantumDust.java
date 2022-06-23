@@ -7,7 +7,7 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class QuantumDust extends QubitBlock {
+public class QuantumDust extends Block {
     public QuantumDust(Properties properties) {
         super(properties);
     }
@@ -31,15 +31,14 @@ public class QuantumDust extends QubitBlock {
 
         if (surroundingBlock instanceof QubitBlock) {
             //player.sendMessage(new TextComponent("Hello"), player.getUUID());
-            QubitBlock newBloch = QubitBlock.class.cast(surroundingBlock);
-            //qstate = newBloch.quantumState;
             player.sendMessage(new TextComponent((Math.pow(qstate[0],2)*100) + "% 0  AND  " + (Math.pow(qstate[1],2)*100) + "% 1"), player.getUUID());
         }
-
         return super.getStateForPlacement(pContext);
     }
 
+    /**
     public double[] returnQState() {
         return qstate;
     }
+     */
 }

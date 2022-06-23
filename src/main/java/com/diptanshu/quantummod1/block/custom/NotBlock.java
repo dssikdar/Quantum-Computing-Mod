@@ -7,7 +7,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class NotBlock extends Block {
+public class NotBlock extends QubitBlock {
     public NotBlock(BlockBehaviour.Properties properties) {
         super(properties);
     }
@@ -41,7 +41,9 @@ public class NotBlock extends Block {
         return resultant;
     }
 
-    public static double[] returnQState() {
+    /**
+    public double[] returnQState() {
         return qstate;
     }
+     */
 }

@@ -16,7 +16,6 @@ public class MeasurementItem extends Item
         super(pProperties);
     }
 
-    //Hashtable<int[], Double> qstate = new Hashtable<int[], Double>();
     public static double[] qstate = QubitBlock.stateVector;
 
     @Override
@@ -31,7 +30,6 @@ public class MeasurementItem extends Item
             if (block instanceof QubitBlock) {
                 // player.sendMessage(new TextComponent("Hello"), player.getUUID());
                 QubitBlock newBloch = QubitBlock.class.cast(block);
-                newBloch.stateVector = QubitBlock.stateVector;
                 if (checkBornRule(newBloch)) {
                     outputQuantumState(newBloch.stateVector, player);
                 }
