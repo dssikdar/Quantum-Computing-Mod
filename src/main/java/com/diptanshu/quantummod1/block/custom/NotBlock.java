@@ -14,6 +14,7 @@ public class NotBlock extends Block {
     }
 
     double[][] xMatrix = { {0.0, 1.0}, {1.0, 0.0}};
+    double[] qstate;
 
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {
@@ -28,11 +29,13 @@ public class NotBlock extends Block {
             surroundingBlock = pContext.getLevel().getBlockState(positionClicked.north(count)).getBlock();
             count += 1;
         }
+        QubitBlock originQubit = ((QubitBlock) surroundingBlock);
 
-        double[] qstate = ((QubitBlock) surroundingBlock).returnQState();
+        qstate = originQubit.returnQState();
+
         qstate = matrixMult(xMatrix, qstate);
         player.sendMessage(new TextComponent((Math.pow(qstate[0],2)*100) + "% 0  AND  " + (Math.pow(qstate[1],2)*100) + "% 1"), player.getUUID());
-        returnQState(qstate);
+        originQubit.returnQState();
 
         return super.getStateForPlacement(pContext);
     }
@@ -51,7 +54,7 @@ public class NotBlock extends Block {
         return resultant;
     }
 
-    public double[] returnQState(double[]  qstate) {
+    public double[] returnQState() {
         return qstate;
     }
 }
