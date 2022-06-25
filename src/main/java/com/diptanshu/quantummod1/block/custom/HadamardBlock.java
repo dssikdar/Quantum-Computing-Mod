@@ -6,7 +6,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import java.lang.Math;
 
 public class HadamardBlock extends Block {
     public HadamardBlock(Properties properties) {
@@ -15,6 +14,7 @@ public class HadamardBlock extends Block {
 
     double k = 1/(Math.sqrt(2));
     double[][] hadamardMatrix = { {k, k}, {k, -k}};
+    double[] qstate;
 
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {
@@ -28,12 +28,17 @@ public class HadamardBlock extends Block {
         while (!(surroundingBlock instanceof QubitBlock)) {
             surroundingBlock = pContext.getLevel().getBlockState(positionClicked.north(count)).getBlock();
             count += 1;
+            if (count > 10) {
+                break;
+            }
         }
+        QubitBlock originQubit = ((QubitBlock) surroundingBlock);
 
-        double[] qstate = ((QubitBlock) surroundingBlock).returnQState();
+        qstate = originQubit.returnQState();
 
         qstate = matrixMult(hadamardMatrix, qstate);
         player.sendMessage(new TextComponent((Math.pow(qstate[0],2)*100) + "% 0  AND  " + (Math.pow(qstate[1],2)*100) + "% 1"), player.getUUID());
+        originQubit.returnQState();
 
         return super.getStateForPlacement(pContext);
     }
@@ -60,9 +65,7 @@ public class HadamardBlock extends Block {
         return resultant;
     }
 
-    /**
-    public static double[] returnQState() {
+    public double[] returnQState() {
         return qstate;
     }
-     */
 }

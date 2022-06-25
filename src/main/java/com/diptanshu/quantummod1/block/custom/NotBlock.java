@@ -5,7 +5,6 @@ import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class NotBlock extends Block {
@@ -28,6 +27,9 @@ public class NotBlock extends Block {
         while (!(surroundingBlock instanceof QubitBlock)) {
             surroundingBlock = pContext.getLevel().getBlockState(positionClicked.north(count)).getBlock();
             count += 1;
+            if (count > 10) {
+                break;
+            }
         }
         QubitBlock originQubit = ((QubitBlock) surroundingBlock);
 
