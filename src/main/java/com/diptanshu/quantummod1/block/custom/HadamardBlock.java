@@ -7,6 +7,7 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
+// OLD VERSION WORKS; code below is not updated to newest system
 public class HadamardBlock extends Block {
     public HadamardBlock(Properties properties) {
         super(properties);

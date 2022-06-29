@@ -9,6 +9,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.block.Block;
 
+// DOES NOT WORK in the new system that was adapted for QubitBlock, QuantumDust, and NotBlock
 public class MeasurementItem extends Item
 {
     public MeasurementItem(Properties pProperties) {

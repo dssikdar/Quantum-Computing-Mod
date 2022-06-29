@@ -7,13 +7,14 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
+// DOES NOT WORK
 public class NotBlock extends Block {
     public NotBlock(Properties properties) {
         super(properties);
     }
 
     double[][] xMatrix = { {0.0, 1.0}, {1.0, 0.0}};
-    double[] qstate;
+    double[] qstate = new double[2];
 
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {
@@ -21,23 +22,45 @@ public class NotBlock extends Block {
         BlockPos positionClicked = pContext.getClickedPos();
         Player player = pContext.getPlayer();
 
-        Block surroundingBlock = pContext.getLevel().getBlockState(positionClicked.north(1)).getBlock();
 
+        player.sendMessage(new TextComponent("Debug1"), player.getUUID());
+
+        Block surroundingBlock = pContext.getLevel().getBlockState(positionClicked.north(1)).getBlock();
         int count = 2;
-        while (!(surroundingBlock instanceof QubitBlock)) {
+        while (!(surroundingBlock instanceof QuantumDust)) {
             surroundingBlock = pContext.getLevel().getBlockState(positionClicked.north(count)).getBlock();
             count += 1;
             if (count > 10) {
                 break;
             }
         }
-        QubitBlock originQubit = ((QubitBlock) surroundingBlock);
 
-        qstate = originQubit.returnQState();
+        /**
+        player.sendMessage(new TextComponent("Debug2"), player.getUUID());
+
+        if (surroundingBlock instanceof QubitBlock) {
+            qstate = ((QubitBlock) surroundingBlock).returnQState();
+        }
+        if (surroundingBlock instanceof QuantumDust) {
+            qstate = ((QuantumDust) surroundingBlock).returnQState();
+        }
+        else if (surroundingBlock instanceof NotBlock) {
+            qstate = ((NotBlock) surroundingBlock).returnQState();
+        }
+        else if (surroundingBlock instanceof HadamardBlock) {
+            qstate = ((HadamardBlock) surroundingBlock).returnQState();
+        }
+         */
+
+        player.sendMessage(new TextComponent("Debug3"), player.getUUID());
+
+        qstate = ((QubitBlock) surroundingBlock).returnQState();
 
         qstate = matrixMult(xMatrix, qstate);
         player.sendMessage(new TextComponent((Math.pow(qstate[0],2)*100) + "% 0  AND  " + (Math.pow(qstate[1],2)*100) + "% 1"), player.getUUID());
-        originQubit.returnQState();
+
+        //NotBlock currentBlock = ((NotBlock) pContext.getLevel().getBlockState(positionClicked).getBlock());
+        //currentBlock.returnQState();
 
         return super.getStateForPlacement(pContext);
     }
