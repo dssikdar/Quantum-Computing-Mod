@@ -1,0 +1,5 @@
+{
+  "variants": {
+    "": { "model": "quantummod2:block/qubit_block" }
+  }
+}

@@ -15,26 +15,26 @@ license="All rights reserved"
 # A list of mods - how many allowed here is determined by the individual mod loader
 [[mods]] #mandatory
 # The modid of the mod
-modId="quantummod1" #mandatory
+modId="quantummod2" #mandatory
 # The version number of the mod - there's a few well known ${} variables useable here or just hardcode it
 # ${file.jarVersion} will substitute the value of the Implementation-Version as read from the mod's JAR file metadata
 # see the associated build.gradle script for how to populate this completely automatically during a build
 version="${file.jarVersion}" #mandatory
  # A display name for the mod
-displayName="Quantum Mod 1" #mandatory
+displayName="Quantum Mod 2" #mandatory
 # A URL to query for updates for this mod. See the JSON update specification https://mcforge.readthedocs.io/en/latest/gettingstarted/autoupdate/
 #updateJSONURL="https://change.me.example.invalid/updates.json" #optional
 # A URL for the "homepage" for this mod, displayed in the mod UI
 #displayURL="https://change.me.to.your.mods.homepage.example.invalid/" #optional
 # A file name (in the root of the mod JAR) containing a logo for display
-logoFile="quantummod1.png" #optional
+logoFile="quantummod2.png" #optional
 # A text field displayed in the mod UI
 credits="MIT Beaver Works Summer Institute for giving me this incredible opportunity; Richard Preston for giving me the idea" #optional
 # A text field displayed in the mod UI
 authors="Diptanshu Sikdar, Richard Preston" #optional
 # The description text for the mod (multi line!) (#mandatory)
 description='''
-This is a first attempt in making a quantum mod for the 2022 BWSI Quantum Software summer course.
+This is a second attempt in making a quantum mod for the 2022 BWSI Quantum Software summer course.
 I have attempted to create a qubit block, some gates, and quantum dust. This is still a major work-in-progress.
 '''
 

@@ -14,8 +14,8 @@ apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
 version = '1.0'
-group = 'com.diptanshu.quantummod1' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = 'quantummod1'
+group = 'com.diptanshu.quantummod2' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = 'quantummod2'
 
 // Mojang ships Java 17 to end users in 1.18+, so your mod should target Java 17.
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
@@ -56,7 +56,7 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
             // Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
-            property 'forge.enabledGameTestNamespaces', 'quantummod1'
+            property 'forge.enabledGameTestNamespaces', 'quantummod2'
 
             mods {
                 examplemod {
@@ -81,7 +81,7 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
             // Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
-            property 'forge.enabledGameTestNamespaces', 'quantummod1'
+            property 'forge.enabledGameTestNamespaces', 'quantummod2'
 
             mods {
                 examplemod {
@@ -109,7 +109,7 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
             // Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
-            property 'forge.enabledGameTestNamespaces', 'quantummod1'
+            property 'forge.enabledGameTestNamespaces', 'quantummod2'
 
             mods {
                 examplemod {
@@ -134,7 +134,7 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
             // Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
-            args '--mod', 'quantummod1', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+            args '--mod', 'quantummod2', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
 
             mods {
                 examplemod {
@@ -181,12 +181,12 @@ dependencies {
 jar {
     manifest {
         attributes([
-                "Specification-Title"     : "quantummod1",
-                "Specification-Vendor"    : "quantummod1sareus",
+                "Specification-Title"     : "quantummod2",
+                "Specification-Vendor"    : "quantummod2sareus",
                 "Specification-Version"   : "1", // We are version 1 of ourselves
                 "Implementation-Title"    : project.name,
                 "Implementation-Version"  : project.jar.archiveVersion,
-                "Implementation-Vendor"   : "quantummod1sareus",
+                "Implementation-Vendor"   : "quantummod2sareus",
                 "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
     }

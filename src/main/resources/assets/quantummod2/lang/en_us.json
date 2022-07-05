@@ -1,0 +1,8 @@
+{
+  "item.quantummod2.measurement": "Measurement",
+
+  "block.quantummod2.qubit_block": "Qubit Block",
+  "block.quantummod2.quantum_dust": "Quantum Dust",
+  "block.quantummod2.hadamard_block": "Hadamard Block",
+  "block.quantummod2.not_block": "Not Block"
+}
