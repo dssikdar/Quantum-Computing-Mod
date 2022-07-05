@@ -1,11 +1,17 @@
 package com.diptanshu.quantummod1.block;
 
 import com.diptanshu.quantummod1.QuantumMod1;
+import com.diptanshu.quantummod1.block.custom.HadamardBlock;
+import com.diptanshu.quantummod1.block.custom.NotBlock;
+import com.diptanshu.quantummod1.block.custom.QuantumDust;
+import com.diptanshu.quantummod1.block.custom.QubitBlock;
 import com.diptanshu.quantummod1.item.ModItems;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.material.Material;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -18,7 +24,7 @@ public class ModBlocks {
     public static final DeferredRegister<Block> BLOCKS =
             DeferredRegister.create(ForgeRegistries.BLOCKS, QuantumMod1.MOD_ID);
 
-    /**
+    // ****** DO NOT UNCOMMENT THIS PORTION OF CODE UNLESS YOU ARE REVERTING BACK TO THE DEPRECATED VERSION ******
     public static final RegistryObject<Block> QUBIT_BLOCK = registerBlock("qubit_block",
             () -> new QubitBlock(BlockBehaviour.Properties.of(Material.STONE)
                     .strength(6f).requiresCorrectToolForDrops()),CreativeModeTab.TAB_MISC);
@@ -34,7 +40,6 @@ public class ModBlocks {
     public static final RegistryObject<Block> HADAMARD_BLOCK = registerBlock("hadamard_block",
             () -> new HadamardBlock(BlockBehaviour.Properties.of(Material.STONE)
                     .strength(6f).requiresCorrectToolForDrops()),CreativeModeTab.TAB_MISC);
-     */
 
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block, CreativeModeTab tab) {

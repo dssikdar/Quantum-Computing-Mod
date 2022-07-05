@@ -8,8 +8,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
 // DOES NOT WORK
-public class NotBlockDepre extends Block {
-    public NotBlockDepre(Properties properties) {
+public class NotBlock extends Block {
+    public NotBlock(Properties properties) {
         super(properties);
     }
 
@@ -23,11 +23,11 @@ public class NotBlockDepre extends Block {
         Player player = pContext.getPlayer();
 
 
-        player.sendMessage(new TextComponent("Debug1"), player.getUUID());
+        //player.sendMessage(new TextComponent("Debug1"), player.getUUID());
 
         Block surroundingBlock = pContext.getLevel().getBlockState(positionClicked.north(1)).getBlock();
         int count = 2;
-        while (!(surroundingBlock instanceof QuantumDustDepre)) {
+        while (!(surroundingBlock instanceof QuantumDust)) {
             surroundingBlock = pContext.getLevel().getBlockState(positionClicked.north(count)).getBlock();
             count += 1;
             if (count > 10) {
@@ -35,8 +35,7 @@ public class NotBlockDepre extends Block {
             }
         }
 
-        /**
-        player.sendMessage(new TextComponent("Debug2"), player.getUUID());
+        //player.sendMessage(new TextComponent("Debug2"), player.getUUID());
 
         if (surroundingBlock instanceof QubitBlock) {
             qstate = ((QubitBlock) surroundingBlock).returnQState();
@@ -50,11 +49,11 @@ public class NotBlockDepre extends Block {
         else if (surroundingBlock instanceof HadamardBlock) {
             qstate = ((HadamardBlock) surroundingBlock).returnQState();
         }
-         */
 
-        player.sendMessage(new TextComponent("Debug3"), player.getUUID());
 
-        qstate = ((QubitBlockDepre) surroundingBlock).returnQState();
+        //player.sendMessage(new TextComponent("Debug3"), player.getUUID());
+
+        qstate = ((QubitBlock) surroundingBlock).returnQState();
 
         qstate = matrixMult(xMatrix, qstate);
         player.sendMessage(new TextComponent((Math.pow(qstate[0],2)*100) + "% 0  AND  " + (Math.pow(qstate[1],2)*100) + "% 1"), player.getUUID());

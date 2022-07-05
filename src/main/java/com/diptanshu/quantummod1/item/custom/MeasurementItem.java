@@ -1,6 +1,6 @@
 package com.diptanshu.quantummod1.item.custom;
 
-import com.diptanshu.quantummod1.block.custom.QubitBlockDepre;
+import com.diptanshu.quantummod1.block.custom.QubitBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.InteractionResult;
@@ -10,9 +10,9 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.block.Block;
 
 // DOES NOT WORK in the new system that was adapted for QubitBlock, QuantumDust, and NotBlock
-public class MeasurementItemDepre extends Item
+public class MeasurementItem extends Item
 {
-    public MeasurementItemDepre(Properties pProperties) {
+    public MeasurementItem(Properties pProperties) {
         super(pProperties);
     }
 
@@ -27,9 +27,9 @@ public class MeasurementItemDepre extends Item
             // player.sendMessage(new TextComponent("Hi"), player.getUUID());
 
             Block block = pContext.getLevel().getBlockState(positionClicked).getBlock();
-            if (block instanceof QubitBlockDepre) {
+            if (block instanceof QubitBlock) {
                 // player.sendMessage(new TextComponent("Hello"), player.getUUID());
-                QubitBlockDepre newBlock = QubitBlockDepre.class.cast(block);
+                QubitBlock newBlock = QubitBlock.class.cast(block);
                 if (checkBornRule(newBlock)) {
                     outputQuantumState(newBlock, player);
                 }
@@ -39,7 +39,7 @@ public class MeasurementItemDepre extends Item
         return super.useOn(pContext);
     }
 
-    private boolean checkBornRule(QubitBlockDepre bloch) {
+    private boolean checkBornRule(QubitBlock bloch) {
         double threshold = 0.0001;
         double[] qstate = bloch.returnQState();
         double sum = 0.0;
@@ -56,7 +56,7 @@ public class MeasurementItemDepre extends Item
         }
     }
 
-    private void outputQuantumState(QubitBlockDepre bloch, Player player) {
+    private void outputQuantumState(QubitBlock bloch, Player player) {
         double[] qstate = bloch.returnQState();
         player.sendMessage(new TextComponent((Math.pow(qstate[0],2)*100) + "% 0  AND  " + (Math.pow(qstate[1],2)*100) + "% 1"), player.getUUID());
     }

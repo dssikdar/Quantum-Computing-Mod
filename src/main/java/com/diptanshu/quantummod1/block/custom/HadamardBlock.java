@@ -8,8 +8,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
 // OLD VERSION WORKS; code below is not updated to newest system
-public class HadamardBlockDepre extends Block {
-    public HadamardBlockDepre(Properties properties) {
+public class HadamardBlock extends Block {
+    public HadamardBlock(Properties properties) {
         super(properties);
     }
 
@@ -26,14 +26,14 @@ public class HadamardBlockDepre extends Block {
         Block surroundingBlock = pContext.getLevel().getBlockState(positionClicked.north(1)).getBlock();
 
         int count = 2;
-        while (!(surroundingBlock instanceof QubitBlockDepre)) {
+        while (!(surroundingBlock instanceof QubitBlock)) {
             surroundingBlock = pContext.getLevel().getBlockState(positionClicked.north(count)).getBlock();
             count += 1;
             if (count > 10) {
                 break;
             }
         }
-        QubitBlockDepre originQubit = ((QubitBlockDepre) surroundingBlock);
+        QubitBlock originQubit = ((QubitBlock) surroundingBlock);
 
         qstate = originQubit.returnQState();
 

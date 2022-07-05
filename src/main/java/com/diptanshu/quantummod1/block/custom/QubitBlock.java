@@ -3,9 +3,9 @@ package com.diptanshu.quantummod1.block.custom;
 import net.minecraft.world.level.block.Block;
 
 // DOES WORK
-public class QubitBlockDepre extends Block {
+public class QubitBlock extends Block {
 
-    public QubitBlockDepre(Properties properties) {
+    public QubitBlock(Properties properties) {
         super(properties);
     }
 
