@@ -29,6 +29,7 @@ public class QubitBlock extends Block {
     public static double[] matrixMult(double[] vector, double[][] matrix) {
         double[] resultant = new double[vector.length];
 
+        /**
         for (int i=0; i<matrix.length; i++) {
             double tempSum = 0.0;
             for (int j=0; j<matrix[0].length; j++) {
@@ -36,11 +37,10 @@ public class QubitBlock extends Block {
             }
             resultant[i] = tempSum;
         }
+        */
 
-        /**
         resultant[0] = matrix[0][0]*vector[0] + matrix[0][1]*vector[1];
         resultant[1] = matrix[1][0]*vector[0] + matrix[1][1]*vector[1];
-         */
 
         return resultant;
     }
