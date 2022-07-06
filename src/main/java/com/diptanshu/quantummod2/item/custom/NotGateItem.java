@@ -27,17 +27,10 @@ public class NotGateItem extends Item
 
         if (clickedBlock instanceof QubitBlock) {
             QubitBlock qubitBlock = QubitBlock.class.cast(clickedBlock);
-            //QubitBlock.updateStateVector(qubitBlock.stateVector, xMatrix);
             double[] currentState = qubitBlock.stateVector.clone();
             player.sendMessage(new TextComponent(("Current State: " + currentState[0]) + " |0>   AND   " + (currentState[1]) + " |1>"), player.getUUID());
-            //double[] newState = matrixMult(currentState, xMatrix);
-            //qubitBlock.stateVector[0] = newState[0];
-            //qubitBlock.stateVector[1] = newState[1];
-            double[] newState = matrixMult(currentState, xMatrix);
-            player.sendMessage(new TextComponent(("New State: " + newState[0]) + " |0>   AND   " + (newState[1]) + " |1>"), player.getUUID());
-            qubitBlock.stateVector = newState;
+            qubitBlock.stateVector = matrixMult(currentState, xMatrix);
             player.sendMessage(new TextComponent(("Qubit Block: " + qubitBlock.stateVector[0]) + " |0>   AND   " + (qubitBlock.stateVector[1]) + " |1>"), player.getUUID());
-
         }
 
         return super.useOn(pContext);

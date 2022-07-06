@@ -15,8 +15,6 @@ public class MeasurementItem extends Item
         super(pProperties);
     }
 
-    //double[] qstate = QubitBlock.stateVector;
-
     @Override
     public InteractionResult useOn(UseOnContext pContext) {
         BlockPos positionClicked = pContext.getClickedPos();
@@ -25,7 +23,6 @@ public class MeasurementItem extends Item
 
         if (clickedBlock instanceof QubitBlock) {
             QubitBlock qubitBlock = QubitBlock.class.cast(clickedBlock);
-            //QubitBlock.outputQuantumState(qubitBlock.stateVector, player);
             player.sendMessage(new TextComponent((qubitBlock.stateVector[0]) + " |0>   AND   " + (qubitBlock.stateVector[1]) + " |1>"), player.getUUID());
         }
 
