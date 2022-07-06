@@ -53,6 +53,8 @@ public class QubitBlock extends Block {
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {
         Player player = pContext.getPlayer();
         Level pLevel = pContext.getLevel();
+        stateVector[0] = 1.0;
+        stateVector[1] = 0.0;
         printState(pLevel, player, stateVector, "Placement");
         return super.getStateForPlacement(pContext);
     }

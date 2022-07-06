@@ -25,22 +25,40 @@ public class NotGateItem extends Item
         BlockPos positionClicked = pContext.getClickedPos();
         Player player = pContext.getPlayer();
         Level pLevel = pContext.getLevel();
-        Block clickedBlock = pContext.getLevel().getBlockState(positionClicked).getBlock();
+        Block clickedBlock = pLevel.getBlockState(positionClicked).getBlock();
 
-        if (clickedBlock instanceof QubitBlock) {
-            QubitBlock qubitBlock = QubitBlock.class.cast(clickedBlock);
+        if (pLevel.isClientSide()) {
+            if (clickedBlock instanceof QubitBlock) {
+                QubitBlock qubitBlock = QubitBlock.class.cast(clickedBlock);
 
-            double[] currentState = qubitBlock.stateVector.clone(); //WORKS 2
-            printState(pLevel, player, currentState, "Old"); //WORKS 2
-            qubitBlock.stateVector = matrixMult(currentState, xMatrix); //WORKS 2
-            printState(pLevel, player, qubitBlock.stateVector, "New"); //WORKS 2
+                double[] currentState = qubitBlock.stateVector.clone();
+                //printState(pLevel, player, currentState, "Old");
+                qubitBlock.stateVector = matrixMult(currentState, xMatrix);
+                //printState(pLevel, player, qubitBlock.stateVector, "New");
 
-            //double[] currentState = qubitBlock.stateVector.clone();
-            //player.sendMessage(new TextComponent(("Current State: " + currentState[0]) + " |0>   AND   " + (currentState[1]) + " |1>"), player.getUUID());
-            //qubitBlock.stateVector = matrixMult(currentState, xMatrix);
-            //player.sendMessage(new TextComponent(("Qubit Block: " + qubitBlock.stateVector[0]) + " |0>   AND   " + (qubitBlock.stateVector[1]) + " |1>"), player.getUUID());
+                //Note: Uncomment 'printState' to observe states before and/or after applying X gate
+            }
         }
 
+        /**
+        if (pLevel.isClientSide()) {
+            if (clickedBlock instanceof QubitBlock) {
+                //QubitBlock qubitBlock = QubitBlock.class.cast(clickedBlock);
+
+                double[] currentState = ((QubitBlock) clickedBlock).stateVector.clone(); //WORKS 2
+                //printState(pLevel, player, currentState, "Old"); //WORKS 2
+                double[] updatedState = matrixMult(((QubitBlock) clickedBlock).stateVector, xMatrix); //WORKS 2
+                ((QubitBlock) clickedBlock).stateVector[0] = updatedState[0];
+                ((QubitBlock) clickedBlock).stateVector[1] = updatedState[1];
+                printState(pLevel, player, ((QubitBlock) clickedBlock).stateVector, "New"); //WORKS 2
+
+                //double[] currentState = qubitBlock.stateVector.clone();
+                //player.sendMessage(new TextComponent(("Current State: " + currentState[0]) + " |0>   AND   " + (currentState[1]) + " |1>"), player.getUUID());
+                //qubitBlock.stateVector = matrixMult(currentState, xMatrix);
+                //player.sendMessage(new TextComponent(("Qubit Block: " + qubitBlock.stateVector[0]) + " |0>   AND   " + (qubitBlock.stateVector[1]) + " |1>"), player.getUUID());
+            }
+        }
+         */
         return super.useOn(pContext);
     }
 }

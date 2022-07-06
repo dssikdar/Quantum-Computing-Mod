@@ -27,12 +27,9 @@ public class ResetQubitItem extends Item
 
         if (clickedBlock instanceof QubitBlock) {
             QubitBlock qubitBlock = QubitBlock.class.cast(clickedBlock);
-            double[] currentState = qubitBlock.stateVector.clone();
-            //player.sendMessage(new TextComponent(("Current State: " + currentState[0]) + " |0>   AND   " + (currentState[1]) + " |1>"), player.getUUID());
             qubitBlock.stateVector[0] = 1.0;
             qubitBlock.stateVector[1] = 0.0;
             printState(pLevel, player, qubitBlock.stateVector, "Reset");
-            //player.sendMessage(new TextComponent(("New State: " + qubitBlock.stateVector[0]) + " |0>   AND   " + (qubitBlock.stateVector[1]) + " |1>"), player.getUUID());
         }
 
         return super.useOn(pContext);

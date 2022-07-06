@@ -25,11 +25,11 @@ public class MeasurementItem extends Item
         Level pLevel = pContext.getLevel();
         Block clickedBlock = pContext.getLevel().getBlockState(positionClicked).getBlock();
 
-        if (clickedBlock instanceof QubitBlock) {
-            QubitBlock qubitBlock = QubitBlock.class.cast(clickedBlock);
-            printState(pLevel, player, qubitBlock.stateVector, "Current");
-
-            //player.sendMessage(new TextComponent((qubitBlock.stateVector[0]) + " |0>   AND   " + (qubitBlock.stateVector[1]) + " |1>"), player.getUUID());
+        if (pLevel.isClientSide()) {
+            if (clickedBlock instanceof QubitBlock) {
+                QubitBlock qubitBlock = QubitBlock.class.cast(clickedBlock);
+                printState(pLevel, player, qubitBlock.stateVector, "Current");
+            }
         }
 
         return super.useOn(pContext);
