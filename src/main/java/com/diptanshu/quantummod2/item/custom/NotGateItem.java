@@ -1,0 +1,45 @@
+package com.diptanshu.quantummod2.item.custom;
+
+import com.diptanshu.quantummod2.block.custom.QubitBlock;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.block.Block;
+
+import static com.diptanshu.quantummod2.block.custom.QubitBlock.matrixMult;
+
+public class NotGateItem extends Item
+{
+    public NotGateItem(Properties pProperties) {
+        super(pProperties);
+    }
+
+    double[][] xMatrix = { {0.0, 1.0}, {1.0, 0.0}};
+
+    @Override
+    public InteractionResult useOn(UseOnContext pContext) {
+        BlockPos positionClicked = pContext.getClickedPos();
+        Player player = pContext.getPlayer();
+        Block clickedBlock = pContext.getLevel().getBlockState(positionClicked).getBlock();
+
+        if (clickedBlock instanceof QubitBlock) {
+            QubitBlock qubitBlock = QubitBlock.class.cast(clickedBlock);
+            //QubitBlock.updateStateVector(qubitBlock.stateVector, xMatrix);
+            double[] currentState = qubitBlock.stateVector.clone();
+            player.sendMessage(new TextComponent(("Current State: " + currentState[0]) + " |0>   AND   " + (currentState[1]) + " |1>"), player.getUUID());
+            //double[] newState = matrixMult(currentState, xMatrix);
+            //qubitBlock.stateVector[0] = newState[0];
+            //qubitBlock.stateVector[1] = newState[1];
+            double[] newState = matrixMult(currentState, xMatrix);
+            player.sendMessage(new TextComponent(("New State: " + newState[0]) + " |0>   AND   " + (newState[1]) + " |1>"), player.getUUID());
+            qubitBlock.stateVector = newState;
+            player.sendMessage(new TextComponent(("Qubit Block: " + qubitBlock.stateVector[0]) + " |0>   AND   " + (qubitBlock.stateVector[1]) + " |1>"), player.getUUID());
+
+        }
+
+        return super.useOn(pContext);
+    }
+}

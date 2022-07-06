@@ -32,7 +32,7 @@ public class ModBlocks {
 
     public static final RegistryObject<Block> QUBIT_BLOCK = registerBlock("qubit_block",
             () -> new QubitBlock(BlockBehaviour.Properties.of(Material.STONE)
-                    .strength(6f).requiresCorrectToolForDrops()),CreativeModeTab.TAB_MISC);
+                    .strength(6f)),CreativeModeTab.TAB_MISC);
 
     /**
     public static final RegistryObject<Block> QUANTUM_DUST = registerBlock("quantum_dust",
@@ -42,11 +42,11 @@ public class ModBlocks {
 
     public static final RegistryObject<Block> NOT_BLOCK = registerBlock("not_block",
             () -> new NotBlock(false,BlockBehaviour.Properties.of(Material.STONE)
-                    .strength(6f).requiresCorrectToolForDrops()),CreativeModeTab.TAB_MISC);
+                    .strength(6f)),CreativeModeTab.TAB_MISC);
 
     public static final RegistryObject<Block> HADAMARD_BLOCK = registerBlock("hadamard_block",
             () -> new HadamardBlock(false, BlockBehaviour.Properties.of(Material.STONE)
-                    .strength(6f).requiresCorrectToolForDrops()),CreativeModeTab.TAB_MISC);
+                    .strength(6f)),CreativeModeTab.TAB_MISC);
 
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block, CreativeModeTab tab) {
