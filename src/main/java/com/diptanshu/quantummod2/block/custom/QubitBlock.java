@@ -16,6 +16,9 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 public class QubitBlock extends Block {
 
     public QubitBlock(Properties properties) {
@@ -39,8 +42,8 @@ public class QubitBlock extends Block {
         }
         */
 
-        resultant[0] = matrix[0][0]*vector[0] + matrix[0][1]*vector[1];
-        resultant[1] = matrix[1][0]*vector[0] + matrix[1][1]*vector[1];
+        resultant[0] = round(matrix[0][0]*vector[0] + matrix[0][1]*vector[1],3);
+        resultant[1] = round(matrix[1][0]*vector[0] + matrix[1][1]*vector[1],3);
 
         return resultant;
     }
@@ -55,5 +58,13 @@ public class QubitBlock extends Block {
 
     public static void outputQuantumState(double[] quantumState, Player player) {
         player.sendMessage(new TextComponent((quantumState[0]) + " |0>   AND   " + (quantumState[1]) + " |1>"), player.getUUID());
+    }
+
+    private static double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+
+        BigDecimal number = new BigDecimal(Double.toString(value));
+        number = number.setScale(places, RoundingMode.HALF_UP);
+        return number.doubleValue();
     }
 }
