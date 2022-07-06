@@ -52,12 +52,9 @@ public class QubitBlock extends Block {
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {
         Player player = pContext.getPlayer();
-        outputQuantumState(stateVector, player);
+        Level pLevel = pContext.getLevel();
+        printState(pLevel, player, stateVector, "Placement");
         return super.getStateForPlacement(pContext);
-    }
-
-    public static void outputQuantumState(double[] quantumState, Player player) {
-        player.sendMessage(new TextComponent((quantumState[0]) + " |0>   AND   " + (quantumState[1]) + " |1>"), player.getUUID());
     }
 
     private static double round(double value, int places) {
@@ -66,5 +63,11 @@ public class QubitBlock extends Block {
         BigDecimal number = new BigDecimal(Double.toString(value));
         number = number.setScale(places, RoundingMode.HALF_UP);
         return number.doubleValue();
+    }
+
+    public static void printState(Level level, Player player, double[] arr, String label) {
+        if (level.isClientSide()) {
+            player.sendMessage(new TextComponent((label + " state: " + arr[0]) + " |0>  +  " + (arr[1]) + " |1>"), player.getUUID()); //WORKS
+        }
     }
 }
