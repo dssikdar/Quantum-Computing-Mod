@@ -4,15 +4,38 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.RedStoneWireBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
-// DOES WORK
-public class QuantumDust extends Block {
+import static com.diptanshu.quantummod2.block.custom.QubitBlock.matrixMult;
+
+// IN PROGRESS -- DOESN'T DO ANYTHING YET
+public class QuantumDust extends RedStoneWireBlock {
     public QuantumDust(Properties properties) {
         super(properties);
     }
 
+    @Override
+    public BlockState getStateForPlacement(BlockPlaceContext placeContext) {
+        Level level = placeContext.getLevel();
+        BlockPos position = placeContext.getClickedPos();
+
+        Block surroundingBlock = level.getBlockState(position.north(1)).getBlock();
+
+        if (level.isClientSide()) {
+            if (surroundingBlock instanceof QubitBlock) {
+                QubitBlock qubitBlock = QubitBlock.class.cast(surroundingBlock);
+                double[] currentState = qubitBlock.stateVector.clone();
+                qubitBlock.stateVector = currentState;
+            }
+        }
+
+        return super.getStateForPlacement(placeContext);
+    }
+
+    /**
     double[] qstate = new double[2];
 
     @Override
@@ -54,4 +77,5 @@ public class QuantumDust extends Block {
     public double[] returnQState() {
         return qstate;
     }
+    */
 }

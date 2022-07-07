@@ -12,14 +12,14 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import static com.diptanshu.quantummod2.block.custom.QubitBlock.matrixMult;
 
-// OLD VERSION WORKS; code below is not updated to newest system
+// IMPORTANT: DIRECTION is FACING NORTH for HADAMARD GATE.
 public class HadamardBlock extends GateBlock {
     public HadamardBlock(Boolean pressed, Properties properties) {
         super(pressed, properties);
     }
 
     double k = 1/(Math.sqrt(2));
-    double[][] hadamardMatrix = { {k, k}, {k, -k}};
+    double[][] hadamardMatrix = {{k, k}, {k, -k}};
 
     @Override
     public void press(BlockState blockState, Level level, BlockPos position) {

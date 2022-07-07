@@ -10,10 +10,6 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 
-import java.lang.reflect.Array;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-
 import static com.diptanshu.quantummod2.block.custom.QubitBlock.*;
 
 public class HadamardGateItem extends Item

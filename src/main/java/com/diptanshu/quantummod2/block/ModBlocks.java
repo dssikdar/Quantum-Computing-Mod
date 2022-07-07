@@ -24,21 +24,13 @@ public class ModBlocks {
     public static final DeferredRegister<Block> BLOCKS =
             DeferredRegister.create(ForgeRegistries.BLOCKS, QuantumMod2.MOD_ID);
 
-    /**
-    public static final RegistryObject<Block> QUBIT_BLOCK = registerBlock("qubit_block",
-            () -> new QubitBlock(BlockBehaviour.Properties.of(Material.STONE)
-                    .strength(6f).requiresCorrectToolForDrops()),CreativeModeTab.TAB_MISC);
-     */
-
     public static final RegistryObject<Block> QUBIT_BLOCK = registerBlock("qubit_block",
             () -> new QubitBlock(BlockBehaviour.Properties.of(Material.STONE)
                     .strength(6f)),CreativeModeTab.TAB_MISC);
 
-    /**
     public static final RegistryObject<Block> QUANTUM_DUST = registerBlock("quantum_dust",
             () -> new QuantumDust(BlockBehaviour.Properties.of(Material.POWDER_SNOW)
                     .strength(3f).requiresCorrectToolForDrops()),CreativeModeTab.TAB_MISC);
-     */
 
     public static final RegistryObject<Block> NOT_BLOCK = registerBlock("not_block",
             () -> new NotBlock(false,BlockBehaviour.Properties.of(Material.STONE)

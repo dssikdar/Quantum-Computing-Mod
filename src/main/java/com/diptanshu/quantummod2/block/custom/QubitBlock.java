@@ -32,16 +32,6 @@ public class QubitBlock extends Block {
     public static double[] matrixMult(double[] vector, double[][] matrix) {
         double[] resultant = new double[vector.length];
 
-        /**
-        for (int i=0; i<matrix.length; i++) {
-            double tempSum = 0.0;
-            for (int j=0; j<matrix[0].length; j++) {
-                tempSum += matrix[i][j]*vector[j];
-            }
-            resultant[i] = tempSum;
-        }
-        */
-
         resultant[0] = round(matrix[0][0]*vector[0] + matrix[0][1]*vector[1],3);
         resultant[1] = round(matrix[1][0]*vector[0] + matrix[1][1]*vector[1],3);
 
@@ -59,7 +49,7 @@ public class QubitBlock extends Block {
         return super.getStateForPlacement(pContext);
     }
 
-    private static double round(double value, int places) {
+    public static double round(double value, int places) {
         if (places < 0) throw new IllegalArgumentException();
 
         BigDecimal number = new BigDecimal(Double.toString(value));
