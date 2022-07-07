@@ -11,7 +11,7 @@ import net.minecraftforge.registries.RegistryObject;
 
 public class ModItems {
 
-    // List of items created under "newtrymod" as known by Forge
+    // List of items created under "quantummod2" as known by Forge
     public static final DeferredRegister<Item> ITEMS =
             DeferredRegister.create(ForgeRegistries.ITEMS, QuantumMod2.MOD_ID);
 

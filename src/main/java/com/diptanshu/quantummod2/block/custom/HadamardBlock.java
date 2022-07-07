@@ -10,6 +10,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
+import static com.diptanshu.quantummod2.block.custom.QubitBlock.matrixMult;
+
 // OLD VERSION WORKS; code below is not updated to newest system
 public class HadamardBlock extends GateBlock {
     public HadamardBlock(Boolean pressed, Properties properties) {
@@ -19,7 +21,18 @@ public class HadamardBlock extends GateBlock {
     double k = 1/(Math.sqrt(2));
     double[][] hadamardMatrix = { {k, k}, {k, -k}};
 
-    public double[][] getMatrix() {
-        return hadamardMatrix;
+    @Override
+    public void press(BlockState blockState, Level level, BlockPos position) {
+        Block surroundingBlock = level.getBlockState(position.north(1)).getBlock();
+
+        if (level.isClientSide()) {
+            if (surroundingBlock instanceof QubitBlock) {
+                QubitBlock qubitBlock = QubitBlock.class.cast(surroundingBlock);
+                double[] currentState = qubitBlock.stateVector.clone();
+                qubitBlock.stateVector = matrixMult(currentState, hadamardMatrix);
+            }
+        }
+
+        super.press(blockState, level, position);
     }
 }
