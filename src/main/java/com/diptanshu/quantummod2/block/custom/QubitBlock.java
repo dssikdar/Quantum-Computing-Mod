@@ -1,6 +1,7 @@
 package com.diptanshu.quantummod2.block.custom;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -29,6 +30,8 @@ public class QubitBlock extends Block {
     public double beta = 0.0;
     public double[] stateVector = {alpha, beta};
 
+    public static BlockPos qubitPosition;
+
     public static double[] matrixMult(double[] vector, double[][] matrix) {
         double[] resultant = new double[vector.length];
 
@@ -43,6 +46,7 @@ public class QubitBlock extends Block {
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {
         Player player = pContext.getPlayer();
         Level pLevel = pContext.getLevel();
+        qubitPosition = pContext.getClickedPos();
         stateVector[0] = 1.0;
         stateVector[1] = 0.0;
         printState(pLevel, player, stateVector, "Placement");
