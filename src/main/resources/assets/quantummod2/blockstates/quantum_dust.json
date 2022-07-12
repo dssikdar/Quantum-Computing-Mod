@@ -1,5 +1,5 @@
 {
   "variants": {
-    "": { "model": "quantummod2:block/quantum_dust" }
+    "": { "model": "quantummod2:block/quantum_dust"}
   }
 }

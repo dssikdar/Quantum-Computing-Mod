@@ -11,8 +11,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
 import static com.diptanshu.quantummod2.block.custom.QubitBlock.matrixMult;
+import static com.diptanshu.quantummod2.block.custom.QubitBlock.qubitPosition;
 
-// IMPORTANT: DIRECTION is FACING NORTH for HADAMARD GATE.
 public class HadamardBlock extends GateBlock {
     public HadamardBlock(Boolean pressed, Properties properties) {
         super(pressed, properties);
@@ -23,7 +23,7 @@ public class HadamardBlock extends GateBlock {
 
     @Override
     public void press(BlockState blockState, Level level, BlockPos position) {
-        Block surroundingBlock = level.getBlockState(position.north(1)).getBlock();
+        Block surroundingBlock = level.getBlockState(qubitPosition).getBlock();
 
         if (level.isClientSide()) {
             if (surroundingBlock instanceof QubitBlock) {

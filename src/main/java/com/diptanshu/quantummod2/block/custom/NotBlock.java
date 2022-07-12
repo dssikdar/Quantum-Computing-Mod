@@ -11,8 +11,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
 import static com.diptanshu.quantummod2.block.custom.QubitBlock.matrixMult;
+import static com.diptanshu.quantummod2.block.custom.QubitBlock.qubitPosition;
 
-// IMPORTANT: DIRECTION is FACING EAST for NOT GATE.
 public class NotBlock extends GateBlock {
     public NotBlock(Boolean pressed, Properties properties) {
         super(pressed, properties);
@@ -22,7 +22,7 @@ public class NotBlock extends GateBlock {
 
     @Override
     public void press(BlockState blockState, Level level, BlockPos position) {
-        Block surroundingBlock = level.getBlockState(position.east(1)).getBlock();
+        Block surroundingBlock = level.getBlockState(qubitPosition).getBlock();
 
         if (level.isClientSide()) {
             if (surroundingBlock instanceof QubitBlock) {
