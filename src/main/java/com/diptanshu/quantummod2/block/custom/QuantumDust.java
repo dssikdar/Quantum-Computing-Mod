@@ -19,6 +19,7 @@ public class QuantumDust extends RedStoneWireBlock {
         super(properties);
     }
 
+
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext placeContext) {
         Level level = placeContext.getLevel();

@@ -15,6 +15,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import org.apache.commons.lang3.ArrayUtils;
 import org.jetbrains.annotations.Nullable;
 
 import java.math.BigDecimal;
@@ -35,8 +36,8 @@ public class QubitBlock extends Block {
     public static double[] matrixMult(double[] vector, double[][] matrix) {
         double[] resultant = new double[vector.length];
 
-        resultant[0] = round(matrix[0][0]*vector[0] + matrix[0][1]*vector[1],3);
-        resultant[1] = round(matrix[1][0]*vector[0] + matrix[1][1]*vector[1],3);
+        resultant[0] = round(matrix[0][0] * vector[0] + matrix[0][1] * vector[1], 3);
+        resultant[1] = round(matrix[1][0] * vector[0] + matrix[1][1] * vector[1], 3);
 
         return resultant;
     }
@@ -46,7 +47,6 @@ public class QubitBlock extends Block {
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {
         Player player = pContext.getPlayer();
         Level pLevel = pContext.getLevel();
-        qubitPosition = pContext.getClickedPos();
         stateVector[0] = 1.0;
         stateVector[1] = 0.0;
         printState(pLevel, player, stateVector, "Placement");
@@ -63,7 +63,7 @@ public class QubitBlock extends Block {
 
     public static void printState(Level level, Player player, double[] arr, String label) {
         if (level.isClientSide()) {
-            player.sendMessage(new TextComponent((label + " state: " + arr[0]) + " |0>  +  " + (arr[1]) + " |1>"), player.getUUID()); //WORKS
+            player.sendMessage(new TextComponent((label + " state: " + arr[0]) + " |0>  +  " + (arr[1]) + " |1>"), player.getUUID());
         }
     }
 }

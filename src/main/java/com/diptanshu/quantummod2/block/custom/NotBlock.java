@@ -10,8 +10,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
-import static com.diptanshu.quantummod2.block.custom.QubitBlock.matrixMult;
-import static com.diptanshu.quantummod2.block.custom.QubitBlock.qubitPosition;
+import static com.diptanshu.quantummod2.block.custom.QubitBlock.*;
 
 public class NotBlock extends GateBlock {
     public NotBlock(Boolean pressed, Properties properties) {
