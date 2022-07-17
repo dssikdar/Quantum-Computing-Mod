@@ -30,6 +30,9 @@ public class ModItems {
     public static final RegistryObject<ResetQubitItem> RESETQUBITITEM = ITEMS.register("resetqubititem",
             () -> new ResetQubitItem(new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
 
+    public static final RegistryObject<QubitAllocationItem> QUBITALLOCATIONITEM = ITEMS.register("qubitallocationitem",
+            () -> new QubitAllocationItem(new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
+
     // create a register
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
