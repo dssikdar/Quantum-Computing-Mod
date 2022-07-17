@@ -1,10 +1,7 @@
 package com.diptanshu.quantummod2.block;
 
 import com.diptanshu.quantummod2.QuantumMod2;
-import com.diptanshu.quantummod2.block.custom.HadamardBlock;
-import com.diptanshu.quantummod2.block.custom.NotBlock;
-import com.diptanshu.quantummod2.block.custom.QuantumDust;
-import com.diptanshu.quantummod2.block.custom.QubitBlock;
+import com.diptanshu.quantummod2.block.custom.*;
 import com.diptanshu.quantummod2.item.ModItems;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.BlockItem;
@@ -40,6 +37,10 @@ public class ModBlocks {
 
     public static final RegistryObject<Block> HADAMARD_BLOCK = registerBlock("hadamard_block",
             () -> new HadamardBlock(false, BlockBehaviour.Properties.of(Material.STONE)
+                    .strength(6f)),CreativeModeTab.TAB_MISC);
+
+    public static final RegistryObject<Block> QUBIT_REGISTER_BLOCK = registerBlock("qubit_register_block",
+            () -> new QubitRegisterBlock(BlockBehaviour.Properties.of(Material.STONE)
                     .strength(6f)),CreativeModeTab.TAB_MISC);
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block, CreativeModeTab tab) {

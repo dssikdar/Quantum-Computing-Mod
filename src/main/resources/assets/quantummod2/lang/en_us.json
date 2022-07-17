@@ -4,9 +4,11 @@
   "item.quantummod2.hadamardgateitem": "Hadamard Gate",
   "item.quantummod2.phaseflipgateitem": "Z Gate",
   "item.quantummod2.resetqubititem": "Reset Gate",
+  "item.quantummod2.qubitallocationitem": "Allocate Qubit",
 
   "block.quantummod2.qubit_block": "Qubit Block",
   "block.quantummod2.quantum_dust": "Quantum Dust",
   "block.quantummod2.hadamard_block": "Hadamard Block",
-  "block.quantummod2.not_block": "Not Block"
+  "block.quantummod2.not_block": "Not Block",
+  "block.quantummod2.qubit_register_block": "Quantum Register Block"
 }
