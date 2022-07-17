@@ -42,16 +42,6 @@ public class QubitBlock extends Block {
         return resultant;
     }
 
-    //to calculate interations between two gates
-    public static double[][] mXm(double[][] matrixA, double[][] matrixB) {
-        double[][] res = new double[2][2];
-        res[0][0] = matrixA[0][0] * matrixB[0][0] + matrixA[0][1] * matrixB[1][0];
-        res[0][1] = matrixA[0][0] * matrixB[0][1] + matrixA[0][1] * matrixB[1][1];
-        res[1][0] = matrixA[1][0] * matrixB[0][0] + matrixA[1][1] * matrixB[1][0];
-        res[0][1] = matrixA[1][0] * matrixB[0][1] + matrixA[1][1] * matrixB[1][1];
-        return res;
-    }
-
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {
