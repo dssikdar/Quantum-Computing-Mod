@@ -17,12 +17,12 @@ public class QubitRegisterBlock extends Block {
 
     //public Object[][] qRegisterState = {{1.0, 0.0, true}, {0.0, 0.0, false}, {0.0, 0.0, false}, {0.0, 0.0, false}, {0.0, 0.0, false}};
 
-    public HashMap<String, Object[]> qRegisterState = new HashMap<String, Object[]>() {{
-        put("up", new Object[]{0.0, 0.0, false});
-        put("north", new Object[]{0.0, 0.0, false});
-        put("south", new Object[]{0.0, 0.0, false});
-        put("east", new Object[]{0.0, 0.0, false});
-        put("west", new Object[]{0.0, 0.0, false});
+    public HashMap<String, double[]> qRegisterState = new HashMap<String, double[]>() {{
+        put("up", new double[]{0.0, 0.0});
+        put("north", new double[]{0.0, 0.0});
+        put("south", new double[]{0.0, 0.0});
+        put("east", new double[]{0.0, 0.0});
+        put("west", new double[]{0.0, 0.0});
     }};
 
     @Nullable
@@ -30,7 +30,7 @@ public class QubitRegisterBlock extends Block {
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {
         Player player = pContext.getPlayer();
         Level pLevel = pContext.getLevel();
-        qRegisterState.replace("up", new Object[]{1.0, 0.0, true});
+        qRegisterState.replace("up", new double[]{1.0, 0.0});
         if (pLevel.isClientSide()) {
             player.sendMessage(new TextComponent("UP: " + qRegisterState.get("up")[0] + " |0>  &&  " + qRegisterState.get("up")[1] + " |1>"), player.getUUID());
         }

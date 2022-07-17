@@ -21,43 +21,63 @@ public class NotBlock extends GateBlock {
 
     @Override
     public void press(BlockState blockState, Level level, BlockPos position) {
-        Block blockBelow = level.getBlockState(position.below(1)).getBlock();
+        Block blockBelow = level.getBlockState(position.below(2)).getBlock();
         if (level.isClientSide()) {
             if (blockBelow instanceof QubitBlock) {
                 QubitBlock qubitBlock = (QubitBlock) blockBelow;
                 qubitBlock.stateVector = matrixMult(qubitBlock.stateVector, xMatrix);
             }
+            if (blockBelow instanceof QubitRegisterBlock) {
+                QubitRegisterBlock registerBlock = (QubitRegisterBlock) blockBelow;
+                registerBlock.qRegisterState.replace("up", matrixMult(registerBlock.qRegisterState.get("up"), xMatrix));
+            }
         }
 
-        Block blockFacingNorth = level.getBlockState(position.north(1)).getBlock();
+        Block blockFacingNorth = level.getBlockState(position.north(2)).getBlock();
         if (level.isClientSide()) {
             if (blockFacingNorth instanceof QubitBlock) {
                 QubitBlock qubitBlock = (QubitBlock) blockFacingNorth;
                 qubitBlock.stateVector = matrixMult(qubitBlock.stateVector, xMatrix);
             }
+            if (blockFacingNorth instanceof QubitRegisterBlock) {
+                QubitRegisterBlock registerBlock = (QubitRegisterBlock) blockFacingNorth;
+                registerBlock.qRegisterState.replace("up", matrixMult(registerBlock.qRegisterState.get("up"), xMatrix));
+            }
         }
 
-        Block blockFacingSouth = level.getBlockState(position.south(1)).getBlock();
+        Block blockFacingSouth = level.getBlockState(position.south(2)).getBlock();
         if (level.isClientSide()) {
             if (blockFacingSouth instanceof QubitBlock) {
                 QubitBlock qubitBlock = (QubitBlock) blockFacingSouth;
                 qubitBlock.stateVector = matrixMult(qubitBlock.stateVector, xMatrix);
             }
+            if (blockFacingSouth instanceof QubitRegisterBlock) {
+                QubitRegisterBlock registerBlock = (QubitRegisterBlock) blockFacingSouth;
+                registerBlock.qRegisterState.replace("up", matrixMult(registerBlock.qRegisterState.get("up"), xMatrix));
+            }
         }
 
-        Block blockFacingEast = level.getBlockState(position.east(1)).getBlock();
+        Block blockFacingEast = level.getBlockState(position.east(2)).getBlock();
         if (level.isClientSide()) {
             if (blockFacingEast instanceof QubitBlock) {
                 QubitBlock qubitBlock = (QubitBlock) blockFacingEast;
                 qubitBlock.stateVector = matrixMult(qubitBlock.stateVector, xMatrix);
             }
+            if (blockFacingEast instanceof QubitRegisterBlock) {
+                QubitRegisterBlock registerBlock = (QubitRegisterBlock) blockFacingEast;
+                registerBlock.qRegisterState.replace("up", matrixMult(registerBlock.qRegisterState.get("up"), xMatrix));
+            }
         }
 
-        Block blockFacingWest = level.getBlockState(position.west(1)).getBlock();
+        Block blockFacingWest = level.getBlockState(position.west(2)).getBlock();
         if (level.isClientSide()) {
             if (blockFacingWest instanceof QubitBlock) {
                 QubitBlock qubitBlock = (QubitBlock) blockFacingWest;
                 qubitBlock.stateVector = matrixMult(qubitBlock.stateVector, xMatrix);
+            }
+            if (blockFacingWest instanceof QubitRegisterBlock) {
+                QubitRegisterBlock registerBlock = (QubitRegisterBlock) blockFacingWest;
+                registerBlock.qRegisterState.replace("up", matrixMult(registerBlock.qRegisterState.get("up"), xMatrix));
             }
         }
 

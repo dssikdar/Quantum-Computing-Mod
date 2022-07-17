@@ -45,7 +45,7 @@ public class QubitAllocationItem extends Item
         if (pLevel.isClientSide()) {
             if (clickedBlock instanceof QubitRegisterBlock) {
                 QubitRegisterBlock registerBlock = QubitRegisterBlock.class.cast(clickedBlock);
-                registerBlock.qRegisterState.replace(direction, new Object[]{1.0, 0.0, true});
+                registerBlock.qRegisterState.replace(direction, new double[]{1.0, 0.0});
                 player.sendMessage(new TextComponent("Direction: " + direction + " | " +
                         registerBlock.qRegisterState.get(direction)[0] + " |0> & " +
                         registerBlock.qRegisterState.get(direction)[1] + " |1>"), player.getUUID());
