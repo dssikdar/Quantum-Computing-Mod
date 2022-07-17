@@ -10,8 +10,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
-import java.awt.desktop.QuitEvent;
-
 import static com.diptanshu.quantummod2.block.custom.QubitBlock.*;
 
 public class NotBlock extends GateBlock {
@@ -23,16 +21,43 @@ public class NotBlock extends GateBlock {
 
     @Override
     public void press(BlockState blockState, Level level, BlockPos position) {
-        Block surroundingBlock = level.getBlockState(position.below(1)).getBlock();
-        //QubitBlock surroundingBlock = level.getBlockState(qubitPosition).getBlock();
-
+        Block blockBelow = level.getBlockState(position.below(1)).getBlock();
         if (level.isClientSide()) {
-            if (surroundingBlock instanceof QubitBlock) {
-                //QubitBlock qubitBlock = QubitBlock.class.cast(surroundingBlock);
-                //double[] currentState = qubitBlock.stateVector.clone();
-                //qubitBlock.stateVector = matrixMult(currentState, xMatrix);
-                QubitBlock belowQubitBlock = (QubitBlock) surroundingBlock;
-                belowQubitBlock.stateVector = matrixMult(belowQubitBlock.stateVector, xMatrix);
+            if (blockBelow instanceof QubitBlock) {
+                QubitBlock qubitBlock = (QubitBlock) blockBelow;
+                qubitBlock.stateVector = matrixMult(qubitBlock.stateVector, xMatrix);
+            }
+        }
+
+        Block blockFacingNorth = level.getBlockState(position.north(1)).getBlock();
+        if (level.isClientSide()) {
+            if (blockFacingNorth instanceof QubitBlock) {
+                QubitBlock qubitBlock = (QubitBlock) blockFacingNorth;
+                qubitBlock.stateVector = matrixMult(qubitBlock.stateVector, xMatrix);
+            }
+        }
+
+        Block blockFacingSouth = level.getBlockState(position.south(1)).getBlock();
+        if (level.isClientSide()) {
+            if (blockFacingSouth instanceof QubitBlock) {
+                QubitBlock qubitBlock = (QubitBlock) blockFacingSouth;
+                qubitBlock.stateVector = matrixMult(qubitBlock.stateVector, xMatrix);
+            }
+        }
+
+        Block blockFacingEast = level.getBlockState(position.east(1)).getBlock();
+        if (level.isClientSide()) {
+            if (blockFacingEast instanceof QubitBlock) {
+                QubitBlock qubitBlock = (QubitBlock) blockFacingEast;
+                qubitBlock.stateVector = matrixMult(qubitBlock.stateVector, xMatrix);
+            }
+        }
+
+        Block blockFacingWest = level.getBlockState(position.west(1)).getBlock();
+        if (level.isClientSide()) {
+            if (blockFacingWest instanceof QubitBlock) {
+                QubitBlock qubitBlock = (QubitBlock) blockFacingWest;
+                qubitBlock.stateVector = matrixMult(qubitBlock.stateVector, xMatrix);
             }
         }
 
