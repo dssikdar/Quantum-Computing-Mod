@@ -14,8 +14,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import java.util.Properties;
 
 public class GateBlock extends ButtonBlock {
-
-    protected GateBlock(boolean pressed, BlockBehaviour.Properties properties) {
+    public GateBlock(boolean pressed, BlockBehaviour.Properties properties) {
         super(pressed, properties);
     }
 
