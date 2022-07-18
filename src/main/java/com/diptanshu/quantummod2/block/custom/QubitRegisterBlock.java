@@ -7,6 +7,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 
@@ -26,6 +28,8 @@ public class QubitRegisterBlock extends Block {
         put("west", new double[]{0.0, 0.0});
     }};
 
+    public ArrayList<String> listOfQubitFaces = new ArrayList<String>();
+
     public double[] completeStateVector;
 
     @Nullable
@@ -33,16 +37,16 @@ public class QubitRegisterBlock extends Block {
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {
         Player player = pContext.getPlayer();
         Level pLevel = pContext.getLevel();
-        qRegStateVector.replace("up", new double[]{1.0, 0.0});
+        listOfQubitFaces.clear();
+        //qRegStateVector.replace("up", new double[]{1.0, 0.0});
+        //printRegState(pLevel, player, qRegStateVector, "up");
         if (pLevel.isClientSide()) {
-            player.sendMessage(new TextComponent("UP: " + qRegStateVector.get("up")[0] + " |0>  &&  " +
-                    qRegStateVector.get("up")[1] + " |1>"), player.getUUID());
+            player.sendMessage(new TextComponent("Empty Qubit Register"), player.getUUID());
         }
-        printRegState(pLevel, player, qRegStateVector, "up");
         return super.getStateForPlacement(pContext);
     }
 
-    public double[] tensorProduct (String dirList, HashMap<String, double[]> quantumRegister) {
+    public double[] tensorProduct (String qubitList, HashMap<String, double[]> quantumRegister) {
         // Length of Quantum Register
         int length = quantumRegister.size();
         // Tensor Product (to be returned)

@@ -28,11 +28,9 @@ public class QubitAllocationItem extends Item
         Level pLevel = pContext.getLevel();
         Block clickedBlock = pContext.getLevel().getBlockState(positionClicked).getBlock();
 
-        if (pLevel.isClientSide()) {
-            player.sendMessage(new TextComponent("Get Clicked Face: " + faceClicked), player.getUUID());
-        }
+        //if (pLevel.isClientSide()) {player.sendMessage(new TextComponent("Get Clicked Face: " + faceClicked), player.getUUID());}
 
-        String face = "up";
+        String face = " ";
 
         if (faceClicked == Direction.NORTH) {
             face = "north";
@@ -46,10 +44,20 @@ public class QubitAllocationItem extends Item
         else if (faceClicked == Direction.WEST) {
             face = "west";
         }
+        else if (faceClicked == Direction.UP) {
+            face = "up";
+        }
 
         if (pLevel.isClientSide()) {
             if (clickedBlock instanceof QubitRegisterBlock) {
                 QubitRegisterBlock registerBlock = QubitRegisterBlock.class.cast(clickedBlock);
+                if (registerBlock.listOfQubitFaces.contains(face)) {
+                    player.sendMessage(new TextComponent("Already allocated"), player.getUUID());
+                }
+                else {
+                    registerBlock.listOfQubitFaces.add(face);
+                }
+                player.sendMessage(new TextComponent("qRegs: " + registerBlock.listOfQubitFaces), player.getUUID());
                 registerBlock.qRegStateVector.replace(face, new double[]{1.0, 0.0});
                 player.sendMessage(new TextComponent("Face: " + face + " | " +
                         registerBlock.qRegStateVector.get(face)[0] + " |0> & " +
