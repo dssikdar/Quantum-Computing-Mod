@@ -1,6 +1,5 @@
 package com.diptanshu.quantummod2.item.custom;
 
-import com.diptanshu.quantummod2.block.custom.QubitBlock;
 import com.diptanshu.quantummod2.block.custom.QubitRegisterBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -11,8 +10,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-
-import static com.diptanshu.quantummod2.block.custom.QubitBlock.printState;
 
 public class QubitAllocationItem extends Item
 {
