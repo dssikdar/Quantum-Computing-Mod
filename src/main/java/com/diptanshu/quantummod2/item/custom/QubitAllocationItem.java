@@ -23,32 +23,37 @@ public class QubitAllocationItem extends Item
     @Override
     public InteractionResult useOn(UseOnContext pContext) {
         BlockPos positionClicked = pContext.getClickedPos();
-        Direction directionClicked = pContext.getClickedFace();
+        Direction faceClicked = pContext.getClickedFace();
         Player player = pContext.getPlayer();
         Level pLevel = pContext.getLevel();
         Block clickedBlock = pContext.getLevel().getBlockState(positionClicked).getBlock();
-        String direction = "up";
 
-        if (directionClicked == Direction.NORTH) {
-            direction = "north";
+        if (pLevel.isClientSide()) {
+            player.sendMessage(new TextComponent("Get Clicked Face: " + faceClicked), player.getUUID());
         }
-        else if (directionClicked == Direction.SOUTH) {
-            direction = "south";
+
+        String face = "up";
+
+        if (faceClicked == Direction.NORTH) {
+            face = "north";
         }
-        else if (directionClicked == Direction.EAST) {
-            direction = "east";
+        else if (faceClicked == Direction.SOUTH) {
+            face = "south";
         }
-        else if (directionClicked == Direction.WEST) {
-            direction = "west";
+        else if (faceClicked == Direction.EAST) {
+            face = "east";
+        }
+        else if (faceClicked == Direction.WEST) {
+            face = "west";
         }
 
         if (pLevel.isClientSide()) {
             if (clickedBlock instanceof QubitRegisterBlock) {
                 QubitRegisterBlock registerBlock = QubitRegisterBlock.class.cast(clickedBlock);
-                registerBlock.qRegisterState.replace(direction, new double[]{1.0, 0.0});
-                player.sendMessage(new TextComponent("Direction: " + direction + " | " +
-                        registerBlock.qRegisterState.get(direction)[0] + " |0> & " +
-                        registerBlock.qRegisterState.get(direction)[1] + " |1>"), player.getUUID());
+                registerBlock.qRegStateVector.replace(face, new double[]{1.0, 0.0});
+                player.sendMessage(new TextComponent("Face: " + face + " | " +
+                        registerBlock.qRegStateVector.get(face)[0] + " |0> & " +
+                        registerBlock.qRegStateVector.get(face)[1] + " |1>"), player.getUUID());
             }
         }
 

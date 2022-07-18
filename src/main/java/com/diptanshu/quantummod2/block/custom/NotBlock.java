@@ -21,7 +21,8 @@ public class NotBlock extends GateBlock {
 
     @Override
     public void press(BlockState blockState, Level level, BlockPos position) {
-        Block blockBelow = level.getBlockState(position.below(2)).getBlock();
+        /**
+        Block blockBelow = level.getBlockState(position.below(1)).getBlock();
         if (level.isClientSide()) {
             if (blockBelow instanceof QubitBlock) {
                 QubitBlock qubitBlock = (QubitBlock) blockBelow;
@@ -29,11 +30,13 @@ public class NotBlock extends GateBlock {
             }
             if (blockBelow instanceof QubitRegisterBlock) {
                 QubitRegisterBlock registerBlock = (QubitRegisterBlock) blockBelow;
-                registerBlock.qRegisterState.replace("up", matrixMult(registerBlock.qRegisterState.get("up"), xMatrix));
+                registerBlock.qRegStateVector.replace("up",
+                        matrixMult(registerBlock.qRegStateVector.get("up"), xMatrix));
             }
         }
+        checkAndUpdate(level, blockBelow, "up");
 
-        Block blockFacingNorth = level.getBlockState(position.north(2)).getBlock();
+        Block blockFacingNorth = level.getBlockState(position.north(1)).getBlock();
         if (level.isClientSide()) {
             if (blockFacingNorth instanceof QubitBlock) {
                 QubitBlock qubitBlock = (QubitBlock) blockFacingNorth;
@@ -41,11 +44,13 @@ public class NotBlock extends GateBlock {
             }
             if (blockFacingNorth instanceof QubitRegisterBlock) {
                 QubitRegisterBlock registerBlock = (QubitRegisterBlock) blockFacingNorth;
-                registerBlock.qRegisterState.replace("up", matrixMult(registerBlock.qRegisterState.get("up"), xMatrix));
+                registerBlock.qRegStateVector.replace("north",
+                        matrixMult(registerBlock.qRegStateVector.get("north"), xMatrix));
             }
         }
+        checkAndUpdate(level, blockFacingNorth, "north");
 
-        Block blockFacingSouth = level.getBlockState(position.south(2)).getBlock();
+        Block blockFacingSouth = level.getBlockState(position.south(1)).getBlock();
         if (level.isClientSide()) {
             if (blockFacingSouth instanceof QubitBlock) {
                 QubitBlock qubitBlock = (QubitBlock) blockFacingSouth;
@@ -53,11 +58,13 @@ public class NotBlock extends GateBlock {
             }
             if (blockFacingSouth instanceof QubitRegisterBlock) {
                 QubitRegisterBlock registerBlock = (QubitRegisterBlock) blockFacingSouth;
-                registerBlock.qRegisterState.replace("up", matrixMult(registerBlock.qRegisterState.get("up"), xMatrix));
+                registerBlock.qRegStateVector.replace("south",
+                        matrixMult(registerBlock.qRegStateVector.get("south"), xMatrix));
             }
         }
+        checkAndUpdate(level, blockFacingSouth, "south");
 
-        Block blockFacingEast = level.getBlockState(position.east(2)).getBlock();
+        Block blockFacingEast = level.getBlockState(position.east(1)).getBlock();
         if (level.isClientSide()) {
             if (blockFacingEast instanceof QubitBlock) {
                 QubitBlock qubitBlock = (QubitBlock) blockFacingEast;
@@ -65,11 +72,13 @@ public class NotBlock extends GateBlock {
             }
             if (blockFacingEast instanceof QubitRegisterBlock) {
                 QubitRegisterBlock registerBlock = (QubitRegisterBlock) blockFacingEast;
-                registerBlock.qRegisterState.replace("up", matrixMult(registerBlock.qRegisterState.get("up"), xMatrix));
+                registerBlock.qRegStateVector.replace("east",
+                        matrixMult(registerBlock.qRegStateVector.get("east"), xMatrix));
             }
         }
+        checkAndUpdate(level, blockFacingEast, "east");
 
-        Block blockFacingWest = level.getBlockState(position.west(2)).getBlock();
+        Block blockFacingWest = level.getBlockState(position.west(1)).getBlock();
         if (level.isClientSide()) {
             if (blockFacingWest instanceof QubitBlock) {
                 QubitBlock qubitBlock = (QubitBlock) blockFacingWest;
@@ -77,10 +86,42 @@ public class NotBlock extends GateBlock {
             }
             if (blockFacingWest instanceof QubitRegisterBlock) {
                 QubitRegisterBlock registerBlock = (QubitRegisterBlock) blockFacingWest;
-                registerBlock.qRegisterState.replace("up", matrixMult(registerBlock.qRegisterState.get("up"), xMatrix));
+                registerBlock.qRegStateVector.replace("west",
+                        matrixMult(registerBlock.qRegStateVector.get("west"), xMatrix));
             }
         }
 
+         */
+
+        Block blockBelow = level.getBlockState(position.below(1)).getBlock();
+        checkAndUpdate(level, blockBelow, "up");
+
+        Block blockFacingNorth = level.getBlockState(position.north(1)).getBlock();
+        checkAndUpdate(level, blockFacingNorth, "south");
+
+        Block blockFacingSouth = level.getBlockState(position.south(1)).getBlock();
+        checkAndUpdate(level, blockFacingSouth, "north");
+
+        Block blockFacingEast = level.getBlockState(position.east(1)).getBlock();
+        checkAndUpdate(level, blockFacingEast, "west");
+
+        Block blockFacingWest = level.getBlockState(position.west(1)).getBlock();
+        checkAndUpdate(level, blockFacingWest, "east");
+
         super.press(blockState, level, position);
+    }
+
+    public void checkAndUpdate(Level level, Block directionalBlock, String face) {
+        if (level.isClientSide()) {
+            if (directionalBlock instanceof QubitBlock) {
+                QubitBlock qubitBlock = (QubitBlock) directionalBlock;
+                qubitBlock.stateVector = matrixMult(qubitBlock.stateVector, xMatrix);
+            }
+            if (directionalBlock instanceof QubitRegisterBlock) {
+                QubitRegisterBlock registerBlock = (QubitRegisterBlock) directionalBlock;
+                registerBlock.qRegStateVector.replace(face,
+                        matrixMult(registerBlock.qRegStateVector.get(face), xMatrix));
+            }
+        }
     }
 }
