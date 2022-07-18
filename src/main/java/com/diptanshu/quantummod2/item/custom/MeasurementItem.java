@@ -57,7 +57,7 @@ public class MeasurementItem extends Item
                         registerBlock.qRegStateVector.get(face)[1] + " |1>"), player.getUUID());
                 player.sendMessage(new TextComponent("List of Qubits: " + registerBlock.listOfQubitFaces), player.getUUID());
 
-                //PRINTING HASHMAP
+                /** Debug: Print full hashmap
                 player.sendMessage(new TextComponent("UP: " + registerBlock.qRegStateVector.get("up")[0]), player.getUUID());
                 player.sendMessage(new TextComponent("UP: " + registerBlock.qRegStateVector.get("up")[1]), player.getUUID());
                 player.sendMessage(new TextComponent("NORTH: " + registerBlock.qRegStateVector.get("north")[0]), player.getUUID());
@@ -68,6 +68,7 @@ public class MeasurementItem extends Item
                 player.sendMessage(new TextComponent("EAST: " + registerBlock.qRegStateVector.get("east")[1]), player.getUUID());
                 player.sendMessage(new TextComponent("WEST: " + registerBlock.qRegStateVector.get("west")[0]), player.getUUID());
                 player.sendMessage(new TextComponent("WEST: " + registerBlock.qRegStateVector.get("west")[1]), player.getUUID());
+                 */
 
                 registerBlock.tensorProduct();
                 player.sendMessage(new TextComponent("Tensor Prod: " + registerBlock.tensorProd), player.getUUID());

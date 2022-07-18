@@ -8,11 +8,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Set;
 
 import static com.diptanshu.quantummod2.block.custom.QubitBlock.round;
 
@@ -22,14 +19,21 @@ public class QubitRegisterBlock extends Block {
         super(properties);
     }
 
-    //public Object[][] qRegisterState = {{1.0, 0.0, true}, {0.0, 0.0, false}, {0.0, 0.0, false}, {0.0, 0.0, false}, {0.0, 0.0, false}};
-
+    // Create a Java hashmap to store all the amplitudes for all qubits in the register
     public HashMap<String, double[]> qRegStateVector = new HashMap<String, double[]>();
 
+    // Create a Java ArrayList to store order of qubits allocated in the register
     public ArrayList<String> listOfQubitFaces = new ArrayList<String>();
 
+    // Create a Java ArrayList that stores the tensor product for the quantum register
     public ArrayList<Double> tensorProd = new ArrayList<Double>();
 
+    /** Purpose: Upon placing the QubitRegisterBlock in the MC environment, initialize qRegStateVector with
+     *  initial values to be initialized properly when qubit is allocated. Also clears list of any previously
+     *  allocated qubits
+     * @param pContext
+     * @return BlockState
+     */
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {
@@ -46,23 +50,26 @@ public class QubitRegisterBlock extends Block {
         // Clear the list of allocated qubits
         listOfQubitFaces.clear();
 
-        //qRegStateVector.replace("up", new double[]{1.0, 0.0});
-        //printRegState(pLevel, player, qRegStateVector, "up");
-
         if (pLevel.isClientSide()) {
             player.sendMessage(new TextComponent("Empty Qubit Register"), player.getUUID());
         }
         return super.getStateForPlacement(pContext);
     }
 
+    /** Purpose: Calculates Tensor Product of the Quantum Register
+     * @param
+     * @return void
+     */
     public void tensorProduct () {
         tensorProd.clear();
 
+        // Temporary ArrayList to store intermediate tensor products
         ArrayList<Double> tpLeft = new ArrayList<Double>();
 
         // Number of qubits in the Quantum Register
         int numOfQubits = listOfQubitFaces.size();
 
+        // Add first quantum state to the tensorProd
         if (numOfQubits == 1) {
             tensorProd.add(qRegStateVector.get(listOfQubitFaces.get(0))[0]);
             tensorProd.add(qRegStateVector.get(listOfQubitFaces.get(0))[1]);
@@ -87,7 +94,7 @@ public class QubitRegisterBlock extends Block {
 
     }
 
-    public static void printRegState(Level level, Player player, HashMap<String, double[]> register, String direction) {
+    public static void printRegisterState(Level level, Player player, HashMap<String, double[]> register, String direction) {
         if (level.isClientSide()) {
             player.sendMessage(new TextComponent(direction.toUpperCase() + register.get(direction)[0] +
                     " |0> + " + register.get(direction)[1] + " |1>"), player.getUUID());

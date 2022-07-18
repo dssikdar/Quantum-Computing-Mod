@@ -1,26 +1,29 @@
 package com.diptanshu.quantummod2.block.custom;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
 import static com.diptanshu.quantummod2.block.custom.QubitBlock.matrixMult;
-import static com.diptanshu.quantummod2.block.custom.QubitBlock.qubitPosition;
 
 public class HadamardBlock extends GateBlock {
     public HadamardBlock(Boolean pressed, Properties properties) {
         super(pressed, properties);
     }
 
-    double k = 1/(Math.sqrt(2));
-    double[][] hadamardMatrix = {{k, k}, {k, -k}};
+    // Create the H-gate Matrix using a 2d double array
+    final double k = 1/(Math.sqrt(2));
+    final double[][] hadamardMatrix = {{k, k}, {k, -k}};
 
+    /** Purpose: When you place the Hadamard Gate Block, you must click on it to apply the gate to the qubit
+     * register or qubit block. You can place the H-gate in any direction, and this procedure will detect it
+     * and change the state accordingly.
+     * @param blockState
+     * @param level
+     * @param position
+     * @return void
+     */
     public void press(BlockState blockState, Level level, BlockPos position) {
         Block blockBelow = level.getBlockState(position.below(1)).getBlock();
         checkAndUpdate(level, blockBelow, "up");
@@ -53,24 +56,4 @@ public class HadamardBlock extends GateBlock {
             }
         }
     }
-
-
-    // -----------------------------------------------------------------------------
-
-    /**
-    @Override
-    public void press(BlockState blockState, Level level, BlockPos position) {
-        Block surroundingBlock = level.getBlockState(qubitPosition).getBlock();
-
-        if (level.isClientSide()) {
-            if (surroundingBlock instanceof QubitBlock) {
-                QubitBlock qubitBlock = QubitBlock.class.cast(surroundingBlock);
-                double[] currentState = qubitBlock.stateVector.clone();
-                qubitBlock.stateVector = matrixMult(currentState, hadamardMatrix);
-            }
-        }
-
-        super.press(blockState, level, position);
-    }
-    */
 }

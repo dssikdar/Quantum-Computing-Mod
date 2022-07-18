@@ -17,82 +17,19 @@ public class NotBlock extends GateBlock {
         super(pressed, properties);
     }
 
+    // Create the X-gate Matrix using a 2d double array
     final double[][] xMatrix = {{0.0, 1.0}, {1.0, 0.0}};
 
+    /** Purpose: When you place the Not Gate Block, you must click on it to apply the gate to the qubit
+     * register or qubit block. You can place the X-gate in any direction, and this procedure will detect it
+     * and change the state accordingly.
+     * @param blockState
+     * @param level
+     * @param position
+     * @return void
+     */
     @Override
     public void press(BlockState blockState, Level level, BlockPos position) {
-        /**
-        Block blockBelow = level.getBlockState(position.below(1)).getBlock();
-        if (level.isClientSide()) {
-            if (blockBelow instanceof QubitBlock) {
-                QubitBlock qubitBlock = (QubitBlock) blockBelow;
-                qubitBlock.stateVector = matrixMult(qubitBlock.stateVector, xMatrix);
-            }
-            if (blockBelow instanceof QubitRegisterBlock) {
-                QubitRegisterBlock registerBlock = (QubitRegisterBlock) blockBelow;
-                registerBlock.qRegStateVector.replace("up",
-                        matrixMult(registerBlock.qRegStateVector.get("up"), xMatrix));
-            }
-        }
-        checkAndUpdate(level, blockBelow, "up");
-
-        Block blockFacingNorth = level.getBlockState(position.north(1)).getBlock();
-        if (level.isClientSide()) {
-            if (blockFacingNorth instanceof QubitBlock) {
-                QubitBlock qubitBlock = (QubitBlock) blockFacingNorth;
-                qubitBlock.stateVector = matrixMult(qubitBlock.stateVector, xMatrix);
-            }
-            if (blockFacingNorth instanceof QubitRegisterBlock) {
-                QubitRegisterBlock registerBlock = (QubitRegisterBlock) blockFacingNorth;
-                registerBlock.qRegStateVector.replace("north",
-                        matrixMult(registerBlock.qRegStateVector.get("north"), xMatrix));
-            }
-        }
-        checkAndUpdate(level, blockFacingNorth, "north");
-
-        Block blockFacingSouth = level.getBlockState(position.south(1)).getBlock();
-        if (level.isClientSide()) {
-            if (blockFacingSouth instanceof QubitBlock) {
-                QubitBlock qubitBlock = (QubitBlock) blockFacingSouth;
-                qubitBlock.stateVector = matrixMult(qubitBlock.stateVector, xMatrix);
-            }
-            if (blockFacingSouth instanceof QubitRegisterBlock) {
-                QubitRegisterBlock registerBlock = (QubitRegisterBlock) blockFacingSouth;
-                registerBlock.qRegStateVector.replace("south",
-                        matrixMult(registerBlock.qRegStateVector.get("south"), xMatrix));
-            }
-        }
-        checkAndUpdate(level, blockFacingSouth, "south");
-
-        Block blockFacingEast = level.getBlockState(position.east(1)).getBlock();
-        if (level.isClientSide()) {
-            if (blockFacingEast instanceof QubitBlock) {
-                QubitBlock qubitBlock = (QubitBlock) blockFacingEast;
-                qubitBlock.stateVector = matrixMult(qubitBlock.stateVector, xMatrix);
-            }
-            if (blockFacingEast instanceof QubitRegisterBlock) {
-                QubitRegisterBlock registerBlock = (QubitRegisterBlock) blockFacingEast;
-                registerBlock.qRegStateVector.replace("east",
-                        matrixMult(registerBlock.qRegStateVector.get("east"), xMatrix));
-            }
-        }
-        checkAndUpdate(level, blockFacingEast, "east");
-
-        Block blockFacingWest = level.getBlockState(position.west(1)).getBlock();
-        if (level.isClientSide()) {
-            if (blockFacingWest instanceof QubitBlock) {
-                QubitBlock qubitBlock = (QubitBlock) blockFacingWest;
-                qubitBlock.stateVector = matrixMult(qubitBlock.stateVector, xMatrix);
-            }
-            if (blockFacingWest instanceof QubitRegisterBlock) {
-                QubitRegisterBlock registerBlock = (QubitRegisterBlock) blockFacingWest;
-                registerBlock.qRegStateVector.replace("west",
-                        matrixMult(registerBlock.qRegStateVector.get("west"), xMatrix));
-            }
-        }
-
-         */
-
         Block blockBelow = level.getBlockState(position.below(1)).getBlock();
         checkAndUpdate(level, blockBelow, "up");
 

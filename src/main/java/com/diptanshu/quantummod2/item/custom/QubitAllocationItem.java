@@ -28,8 +28,6 @@ public class QubitAllocationItem extends Item
         Level pLevel = pContext.getLevel();
         Block clickedBlock = pContext.getLevel().getBlockState(positionClicked).getBlock();
 
-        //if (pLevel.isClientSide()) {player.sendMessage(new TextComponent("Get Clicked Face: " + faceClicked), player.getUUID());}
-
         String face = " ";
 
         if (faceClicked == Direction.NORTH) {
