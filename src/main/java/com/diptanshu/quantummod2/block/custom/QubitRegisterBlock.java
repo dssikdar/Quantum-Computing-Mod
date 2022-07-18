@@ -24,13 +24,7 @@ public class QubitRegisterBlock extends Block {
 
     //public Object[][] qRegisterState = {{1.0, 0.0, true}, {0.0, 0.0, false}, {0.0, 0.0, false}, {0.0, 0.0, false}, {0.0, 0.0, false}};
 
-    public HashMap<String, double[]> qRegStateVector = new HashMap<String, double[]>() {{
-        put("up", new double[]{0.0, 0.0});
-        put("north", new double[]{0.0, 0.0});
-        put("south", new double[]{0.0, 0.0});
-        put("east", new double[]{0.0, 0.0});
-        put("west", new double[]{0.0, 0.0});
-    }};
+    public HashMap<String, double[]> qRegStateVector = new HashMap<String, double[]>();
 
     public ArrayList<String> listOfQubitFaces = new ArrayList<String>();
 
@@ -41,9 +35,20 @@ public class QubitRegisterBlock extends Block {
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {
         Player player = pContext.getPlayer();
         Level pLevel = pContext.getLevel();
+
+        // Initializing the Quantum Register Hashmap
+        qRegStateVector.put("up", new double[]{0.0, 0.0});
+        qRegStateVector.put("north", new double[]{0.0, 0.0});
+        qRegStateVector.put("south", new double[]{0.0, 0.0});
+        qRegStateVector.put("east", new double[]{0.0, 0.0});
+        qRegStateVector.put("west", new double[]{0.0, 0.0});
+
+        // Clear the list of allocated qubits
         listOfQubitFaces.clear();
+
         //qRegStateVector.replace("up", new double[]{1.0, 0.0});
         //printRegState(pLevel, player, qRegStateVector, "up");
+
         if (pLevel.isClientSide()) {
             player.sendMessage(new TextComponent("Empty Qubit Register"), player.getUUID());
         }
