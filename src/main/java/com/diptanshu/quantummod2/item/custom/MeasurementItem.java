@@ -53,9 +53,26 @@ public class MeasurementItem extends Item
             if (clickedBlock instanceof QubitRegisterBlock) {
                 QubitRegisterBlock registerBlock = QubitRegisterBlock.class.cast(clickedBlock);
                 player.sendMessage(new TextComponent("Direction: " + face + " | " +
-                        registerBlock.qRegStateVector.get(face)[0] + " |0> & " +
+                        registerBlock.qRegStateVector.get(face)[0] + " |0> + " +
                         registerBlock.qRegStateVector.get(face)[1] + " |1>"), player.getUUID());
+                player.sendMessage(new TextComponent("List of Qubits: " + registerBlock.listOfQubitFaces), player.getUUID());
+
+                //PRINTING HASHMAP
+                player.sendMessage(new TextComponent("UP: " + registerBlock.qRegStateVector.get("up")[0]), player.getUUID());
+                player.sendMessage(new TextComponent("UP: " + registerBlock.qRegStateVector.get("up")[1]), player.getUUID());
+                player.sendMessage(new TextComponent("NORTH: " + registerBlock.qRegStateVector.get("north")[0]), player.getUUID());
+                player.sendMessage(new TextComponent("NORTH: " + registerBlock.qRegStateVector.get("north")[1]), player.getUUID());
+                player.sendMessage(new TextComponent("SOUTH: " + registerBlock.qRegStateVector.get("south")[0]), player.getUUID());
+                player.sendMessage(new TextComponent("SOUTH: " + registerBlock.qRegStateVector.get("south")[1]), player.getUUID());
+                player.sendMessage(new TextComponent("EAST: " + registerBlock.qRegStateVector.get("east")[0]), player.getUUID());
+                player.sendMessage(new TextComponent("EAST: " + registerBlock.qRegStateVector.get("east")[1]), player.getUUID());
+                player.sendMessage(new TextComponent("WEST: " + registerBlock.qRegStateVector.get("west")[0]), player.getUUID());
+                player.sendMessage(new TextComponent("WEST: " + registerBlock.qRegStateVector.get("west")[1]), player.getUUID());
+
+                registerBlock.tensorProduct();
+                player.sendMessage(new TextComponent("Tensor Prod: " + registerBlock.tensorProd), player.getUUID());
             }
+
         }
 
         return super.useOn(pContext);

@@ -8,9 +8,13 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Set;
+
+import static com.diptanshu.quantummod2.block.custom.QubitBlock.round;
 
 public class QubitRegisterBlock extends Block {
 
@@ -30,7 +34,7 @@ public class QubitRegisterBlock extends Block {
 
     public ArrayList<String> listOfQubitFaces = new ArrayList<String>();
 
-    public double[] completeStateVector;
+    public ArrayList<Double> tensorProd = new ArrayList<Double>();
 
     @Nullable
     @Override
@@ -46,26 +50,42 @@ public class QubitRegisterBlock extends Block {
         return super.getStateForPlacement(pContext);
     }
 
-    public double[] tensorProduct (String qubitList, HashMap<String, double[]> quantumRegister) {
-        // Length of Quantum Register
-        int length = quantumRegister.size();
-        // Tensor Product (to be returned)
-        double[] tensorProd = new double[2*length];
-        // Initialization of Tensor Product to full-length '1' vector
-        for (int i=0; i<length; i++) {
-            tensorProd[i] = 1;
+    public void tensorProduct () {
+        tensorProd.clear();
+
+        ArrayList<Double> tpLeft = new ArrayList<Double>();
+
+        // Number of qubits in the Quantum Register
+        int numOfQubits = listOfQubitFaces.size();
+
+        if (numOfQubits == 1) {
+            tensorProd.add(qRegStateVector.get(listOfQubitFaces.get(0))[0]);
+            tensorProd.add(qRegStateVector.get(listOfQubitFaces.get(0))[1]);
+        }
+        else {
+            for (int i = 0; i < numOfQubits; i++) {
+                if (i == 0) {
+                    tpLeft.add(qRegStateVector.get(listOfQubitFaces.get(0))[0]);
+                    tpLeft.add(qRegStateVector.get(listOfQubitFaces.get(0))[1]);
+                } else {
+                    int sizeOftpLeft = tpLeft.size();
+                    tensorProd.clear();
+                    for (int j = 0; j < sizeOftpLeft; j++) {
+                        tensorProd.add(round(tpLeft.get(j) * qRegStateVector.get(listOfQubitFaces.get(i))[0], 3));
+                        tensorProd.add(round(tpLeft.get(j) * qRegStateVector.get(listOfQubitFaces.get(i))[1], 3));
+                    }
+                    tpLeft.clear();
+                    tpLeft.addAll(tensorProd);
+                }
+            }
         }
 
-        //Set<String> directions = quantumRegister.keySet();
-        //for (int idx=0; idx<dirList.length(); idx++) {}
-
-        return tensorProd;
     }
 
     public static void printRegState(Level level, Player player, HashMap<String, double[]> register, String direction) {
         if (level.isClientSide()) {
             player.sendMessage(new TextComponent(direction.toUpperCase() + register.get(direction)[0] +
-                    " |0>  &&  " + register.get(direction)[1] + " |1>"), player.getUUID());
+                    " |0> + " + register.get(direction)[1] + " |1>"), player.getUUID());
         }
     }
 }
