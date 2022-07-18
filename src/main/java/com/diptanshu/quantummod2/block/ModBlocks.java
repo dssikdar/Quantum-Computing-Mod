@@ -39,6 +39,10 @@ public class ModBlocks {
             () -> new HadamardBlock(false, BlockBehaviour.Properties.of(Material.STONE)
                     .strength(6f)),CreativeModeTab.TAB_MISC);
 
+    public static final RegistryObject<Block> PHASE_FLIP_BLOCK = registerBlock("phase_flip_block",
+            () -> new PhaseFlipBlock(false, BlockBehaviour.Properties.of(Material.STONE)
+                    .strength(6f)),CreativeModeTab.TAB_MISC);
+
     public static final RegistryObject<Block> QUBIT_REGISTER_BLOCK = registerBlock("qubit_register_block",
             () -> new QubitRegisterBlock(BlockBehaviour.Properties.of(Material.STONE)
                     .strength(6f)),CreativeModeTab.TAB_MISC);
