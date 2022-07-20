@@ -47,6 +47,7 @@ public class HadamardBlock extends GateBlock {
         if (level.isClientSide()) {
             if (directionalBlock instanceof QubitBlock) {
                 QubitBlock qubitBlock = (QubitBlock) directionalBlock;
+                qubitBlock.setStateVector(matrixMult(qubitBlock.getStateVector(qubitBlock), hadamardMatrix));
                 qubitBlock.stateVector = matrixMult(qubitBlock.stateVector, hadamardMatrix);
             }
             if (directionalBlock instanceof QubitRegisterBlock) {
