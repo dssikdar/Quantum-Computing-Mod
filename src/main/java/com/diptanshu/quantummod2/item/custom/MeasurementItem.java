@@ -11,6 +11,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 
 import static com.diptanshu.quantummod2.block.custom.QubitBlock.printState;
 
@@ -26,7 +27,8 @@ public class MeasurementItem extends Item
         Direction faceClicked = pContext.getClickedFace();
         Player player = pContext.getPlayer();
         Level pLevel = pContext.getLevel();
-        Block clickedBlock = pContext.getLevel().getBlockState(positionClicked).getBlock();
+        BlockState clickedBlockState = pContext.getLevel().getBlockState(positionClicked);
+        Block clickedBlock = clickedBlockState.getBlock();
 
         String face = "up";
 
@@ -46,7 +48,7 @@ public class MeasurementItem extends Item
         if (pLevel.isClientSide()) {
             if (clickedBlock instanceof QubitBlock) {
                 QubitBlock qubitBlock = QubitBlock.class.cast(clickedBlock);
-                printState(pLevel, player, qubitBlock.stateVector, "Current");
+                printState(pLevel, player, qubitBlock.getStateVector(positionClicked), "Current");
             }
             if (clickedBlock instanceof QubitRegisterBlock) {
                 QubitRegisterBlock registerBlock = QubitRegisterBlock.class.cast(clickedBlock);

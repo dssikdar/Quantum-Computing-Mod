@@ -25,30 +25,39 @@ public class HadamardBlock extends GateBlock {
      * @return void
      */
     public void press(BlockState blockState, Level level, BlockPos position) {
-        Block blockBelow = level.getBlockState(position.below(1)).getBlock();
-        checkAndUpdate(level, blockBelow, "up");
 
-        Block blockFacingNorth = level.getBlockState(position.north(1)).getBlock();
-        checkAndUpdate(level, blockFacingNorth, "south");
+        BlockPos below = position.below(1);
+        Block blockBelow = level.getBlockState(below).getBlock();
+        checkAndUpdate(level, blockBelow, below, "up");
 
-        Block blockFacingSouth = level.getBlockState(position.south(1)).getBlock();
-        checkAndUpdate(level, blockFacingSouth, "north");
+        BlockPos above = position.above(1);
+        Block blockAbove = level.getBlockState(below).getBlock();
+        checkAndUpdate(level, blockAbove, above, "down");
 
-        Block blockFacingEast = level.getBlockState(position.east(1)).getBlock();
-        checkAndUpdate(level, blockFacingEast, "west");
+        BlockPos north = position.north(1);
+        Block blockNorth = level.getBlockState(north).getBlock();
+        checkAndUpdate(level, blockNorth, north, "south");
 
-        Block blockFacingWest = level.getBlockState(position.west(1)).getBlock();
-        checkAndUpdate(level, blockFacingWest, "east");
+        BlockPos south = position.south(1);
+        Block blockSouth = level.getBlockState(south).getBlock();
+        checkAndUpdate(level, blockSouth, south, "north");
+
+        BlockPos west = position.west(1);
+        Block blockWest = level.getBlockState(west).getBlock();
+        checkAndUpdate(level, blockWest, west, "east");
+
+        BlockPos east = position.east(1);
+        Block blockEast = level.getBlockState(east).getBlock();
+        checkAndUpdate(level, blockEast, east, "west");
 
         super.press(blockState, level, position);
     }
 
-    public void checkAndUpdate(Level level, Block directionalBlock, String face) {
+    public void checkAndUpdate(Level level, Block directionalBlock, BlockPos pos, String face) {
         if (level.isClientSide()) {
             if (directionalBlock instanceof QubitBlock) {
                 QubitBlock qubitBlock = (QubitBlock) directionalBlock;
-                qubitBlock.setStateVector(matrixMult(qubitBlock.getStateVector(qubitBlock), hadamardMatrix));
-                qubitBlock.stateVector = matrixMult(qubitBlock.stateVector, hadamardMatrix);
+                qubitBlock.setStateVector(matrixMult(qubitBlock.getStateVector(pos), hadamardMatrix), pos);
             }
             if (directionalBlock instanceof QubitRegisterBlock) {
                 QubitRegisterBlock registerBlock = (QubitRegisterBlock) directionalBlock;

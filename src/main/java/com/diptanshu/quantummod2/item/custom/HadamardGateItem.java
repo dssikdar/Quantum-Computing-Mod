@@ -9,6 +9,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 
 import static com.diptanshu.quantummod2.block.custom.QubitBlock.*;
 
@@ -26,15 +27,16 @@ public class HadamardGateItem extends Item
         BlockPos positionClicked = pContext.getClickedPos();
         Player player = pContext.getPlayer();
         Level pLevel = pContext.getLevel();
-        Block clickedBlock = pContext.getLevel().getBlockState(positionClicked).getBlock();
+        BlockState clickedBlockState = pContext.getLevel().getBlockState(positionClicked);
+        Block clickedBlock = clickedBlockState.getBlock();
 
         if (pLevel.isClientSide()) {
             if (clickedBlock instanceof QubitBlock) {
                 QubitBlock qubitBlock = QubitBlock.class.cast(clickedBlock);
 
-                double[] currentState = qubitBlock.stateVector.clone();
+                double[] currentState = qubitBlock.getStateVector(positionClicked);
                 //printState(pLevel, player, currentState, "Previous");
-                qubitBlock.stateVector = matrixMult(currentState, hMatrix);
+                qubitBlock.setStateVector(matrixMult(currentState, hMatrix), positionClicked);
                 //printState(pLevel, player, qubitBlock.stateVector, "Current");
 
                 //Note: Uncomment 'printState' to observe states before and/or after applying X gate

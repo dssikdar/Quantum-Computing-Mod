@@ -17,33 +17,30 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import org.apache.commons.lang3.ArrayUtils;
 import org.jetbrains.annotations.Nullable;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.HashMap;
+import java.util.Map;
 
 public class QubitBlock extends Block {
 
-    EnumProperty STATEVECTOR0 = EnumProperty.create("statevector0", QubitHolding.class);
-    EnumProperty STATEVECTOR1 = EnumProperty.create("statevector1", QubitHolding.class);
+    public static final double[] defaultState = {1.0D, 0.0D};
+    public static Map<Integer, double[]> POS_HASH_TO_VECTOR = new HashMap<Integer, double[]>();
 
     public QubitBlock(Properties properties) {
         super(properties);
-        this.registerDefaultState(this.stateDefinition.any().setValue(STATEVECTOR0, defaultState[0]).setValue(STATEVECTOR1, defaultState[1]));
     }
-
-    public static final double[] defaultState = {1.0D, 0.0D};
-
-    public static BlockPos qubitPosition;
 
     public static double[] matrixMult(double[] vector, double[][] matrix) {
         double[] resultant = new double[vector.length];
 
         resultant[0] = round(matrix[0][0] * vector[0] + matrix[0][1] * vector[1], 3);
         resultant[1] = round(matrix[1][0] * vector[0] + matrix[1][1] * vector[1], 3);
-
         return resultant;
     }
 
@@ -52,8 +49,9 @@ public class QubitBlock extends Block {
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {
         Player player = pContext.getPlayer();
         Level pLevel = pContext.getLevel();
-        qubitPosition = pContext.getClickedPos();
-        printState(pLevel, player, getStateVector(pLevel.getBlockState(qubitPosition)), "Placement");
+        BlockPos qubitPosition = pContext.getClickedPos();
+        setStateVector(defaultState.clone(), qubitPosition);
+        printState(pLevel, player, getStateVector(qubitPosition), "Placement");
         return super.getStateForPlacement(pContext);
     }
 
@@ -65,22 +63,16 @@ public class QubitBlock extends Block {
         return number.doubleValue();
     }
 
-    public void setStateVector(double[] newvector, Level level, BlockState state, BlockPos position){
-        level.setBlock(position, state.setValue(STATEVECTOR0, newvector[0]), 3);
-        level.setBlock(position, state.setValue(STATEVECTOR1, newvector[1]), 3);
+    public static void setStateVector(double[] newvector, BlockPos pos){
+        POS_HASH_TO_VECTOR.put(pos.hashCode(), newvector);
     }
-    public double[] getStateVector(BlockState state){
-        return new double[]{(double)state.getValue(STATEVECTOR0), (double)state.getValue(STATEVECTOR1)};
+    public static double[] getStateVector(BlockPos pos){
+        return POS_HASH_TO_VECTOR.get(pos.hashCode());
     }
 
     public static void printState(Level level, Player player, double[] arr, String label) {
         if (level.isClientSide()) {
             player.sendMessage(new TextComponent((label + " state: " + arr[0]) + " |0>  +  " + (arr[1]) + " |1>"), player.getUUID());
         }
-    }
-
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(STATEVECTOR0);
-        builder.add(STATEVECTOR1);
     }
 }

@@ -9,6 +9,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 
 import static com.diptanshu.quantummod2.block.custom.QubitBlock.*;
 
@@ -23,13 +24,13 @@ public class ResetQubitItem extends Item
         BlockPos positionClicked = pContext.getClickedPos();
         Player player = pContext.getPlayer();
         Level pLevel = pContext.getLevel();
-        Block clickedBlock = pContext.getLevel().getBlockState(positionClicked).getBlock();
+        BlockState clickedBlockState = pContext.getLevel().getBlockState(positionClicked);
+        Block clickedBlock = clickedBlockState.getBlock();
 
         if (clickedBlock instanceof QubitBlock) {
             QubitBlock qubitBlock = QubitBlock.class.cast(clickedBlock);
-            qubitBlock.stateVector[0] = 1.0;
-            qubitBlock.stateVector[1] = 0.0;
-            printState(pLevel, player, qubitBlock.stateVector, "Reset");
+            qubitBlock.setStateVector(defaultState, positionClicked);
+            printState(pLevel, player, qubitBlock.getStateVector(positionClicked), "Reset");
         }
 
         return super.useOn(pContext);
