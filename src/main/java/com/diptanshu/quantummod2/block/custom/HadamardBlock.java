@@ -26,27 +26,27 @@ public class HadamardBlock extends GateBlock {
      */
     public void press(BlockState blockState, Level level, BlockPos position) {
 
-        BlockPos below = position.below(1);
+        BlockPos below = position.below();
         Block blockBelow = level.getBlockState(below).getBlock();
         checkAndUpdate(level, blockBelow, below, "up");
 
-        BlockPos above = position.above(1);
-        Block blockAbove = level.getBlockState(below).getBlock();
+        BlockPos above = position.above();
+        Block blockAbove = level.getBlockState(above).getBlock();
         checkAndUpdate(level, blockAbove, above, "down");
 
-        BlockPos north = position.north(1);
+        BlockPos north = position.north();
         Block blockNorth = level.getBlockState(north).getBlock();
         checkAndUpdate(level, blockNorth, north, "south");
 
-        BlockPos south = position.south(1);
+        BlockPos south = position.south();
         Block blockSouth = level.getBlockState(south).getBlock();
         checkAndUpdate(level, blockSouth, south, "north");
 
-        BlockPos west = position.west(1);
+        BlockPos west = position.west();
         Block blockWest = level.getBlockState(west).getBlock();
         checkAndUpdate(level, blockWest, west, "east");
 
-        BlockPos east = position.east(1);
+        BlockPos east = position.east();
         Block blockEast = level.getBlockState(east).getBlock();
         checkAndUpdate(level, blockEast, east, "west");
 

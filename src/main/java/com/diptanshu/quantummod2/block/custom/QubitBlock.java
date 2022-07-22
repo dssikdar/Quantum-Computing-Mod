@@ -27,7 +27,7 @@ import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.Map;
 
-public class QubitBlock extends Block {
+public class QubitBlock extends Block implements QubitReferencer {
 
     public static final double[] defaultState = {1.0D, 0.0D};
     public static Map<Integer, double[]> POS_HASH_TO_VECTOR = new HashMap<Integer, double[]>();
@@ -67,6 +67,9 @@ public class QubitBlock extends Block {
         POS_HASH_TO_VECTOR.put(pos.hashCode(), newvector);
     }
     public static double[] getStateVector(BlockPos pos){
+        if(!POS_HASH_TO_VECTOR.containsKey(pos.hashCode())){
+            POS_HASH_TO_VECTOR.put(pos.hashCode(), defaultState.clone());
+        }
         return POS_HASH_TO_VECTOR.get(pos.hashCode());
     }
 
@@ -74,5 +77,9 @@ public class QubitBlock extends Block {
         if (level.isClientSide()) {
             player.sendMessage(new TextComponent((label + " state: " + arr[0]) + " |0>  +  " + (arr[1]) + " |1>"), player.getUUID());
         }
+    }
+
+    public BlockPos supplyQubit(BlockPos pos){
+        return pos;
     }
 }
