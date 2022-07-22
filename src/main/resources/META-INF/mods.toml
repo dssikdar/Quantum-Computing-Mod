@@ -29,13 +29,19 @@ displayName="Quantum Mod 2" #mandatory
 # A file name (in the root of the mod JAR) containing a logo for display
 logoFile="quantummod2.png" #optional
 # A text field displayed in the mod UI
-credits="MIT Beaver Works Summer Institute for giving me this incredible opportunity; Richard Preston for giving me the idea" #optional
+credits="MIT Beaver Works Summer Institute for giving me this incredible opportunity; Lead instructor Richard Preston for giving me the idea" #optional
 # A text field displayed in the mod UI
-authors="Diptanshu Sikdar, Richard Preston" #optional
+authors="Diptanshu Sikdar, Foster Smith" #optional
 # The description text for the mod (multi line!) (#mandatory)
 description='''
-This is a second attempt in making a quantum mod for the 2022 BWSI Quantum Software summer course.
-I have attempted to create a qubit block, some gates, and quantum dust. This is still a major work-in-progress.
+This Minecraft Mod implements a Quantum Software world within Minecraft so that players can better understand how each
+component works. There is a Qubit Block and Qubit Register Block. The Qubit Register Block can hold up to 5 qubits, one
+on each face. However, the qubit must be allocated before any operation can be executed on the qubit. There are 3 gate
+blocks: X (NOT), H (Hadamard), & Z (Phase Flip). There are like buttons, which means that you have to actually click
+them to apply the quantum operation to the qubit. Also, to find the intermediate step of the qubit at any time, simply
+use the "peak inside" item to the qubit or qubit register.
+
+This is still a work-in-progress though!
 '''
 
 # A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
