@@ -36,14 +36,6 @@ public class QubitBlock extends Block implements QubitReferencer {
         super(properties);
     }
 
-    public static double[] matrixMult(double[] vector, double[][] matrix) {
-        double[] resultant = new double[vector.length];
-
-        resultant[0] = round(matrix[0][0] * vector[0] + matrix[0][1] * vector[1], 3);
-        resultant[1] = round(matrix[1][0] * vector[0] + matrix[1][1] * vector[1], 3);
-        return resultant;
-    }
-
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {
@@ -53,6 +45,15 @@ public class QubitBlock extends Block implements QubitReferencer {
         setStateVector(defaultState.clone(), qubitPosition);
         printState(pLevel, player, getStateVector(qubitPosition), "Placement");
         return super.getStateForPlacement(pContext);
+    }
+
+    public static double[] matrixMult(double[] vector, double[][] matrix) {
+        double[] resultant = new double[vector.length];
+
+        resultant[0] = round(matrix[0][0] * vector[0] + matrix[0][1] * vector[1], 3);
+        resultant[1] = round(matrix[1][0] * vector[0] + matrix[1][1] * vector[1], 3);
+
+        return resultant;
     }
 
     public static double round(double value, int places) {
