@@ -15,34 +15,35 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import org.apache.commons.lang3.ArrayUtils;
 import org.jetbrains.annotations.Nullable;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.HashMap;
+import java.util.Map;
 
-public class QubitBlock extends Block {
+public class QubitBlock extends Block implements QubitReferencer {
+
+    public static final double[] defaultState = {1.0D, 0.0D};
+    public static Map<Integer, double[]> POS_HASH_TO_VECTOR = new HashMap<Integer, double[]>();
 
     public QubitBlock(Properties properties) {
         super(properties);
     }
-
-    public double alpha = 1.0;
-    public double beta = 0.0;
-    public double[] stateVector = {alpha, beta};
-
-    public static BlockPos qubitPosition;
-
 
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {
         Player player = pContext.getPlayer();
         Level pLevel = pContext.getLevel();
-        qubitPosition = pContext.getClickedPos();
-        stateVector[0] = 1.0;
-        stateVector[1] = 0.0;
-        printState(pLevel, player, stateVector, "Placement");
+        BlockPos qubitPosition = pContext.getClickedPos();
+        setStateVector(defaultState.clone(), qubitPosition);
+        printState(pLevel, player, getStateVector(qubitPosition), "Placement");
         return super.getStateForPlacement(pContext);
     }
 
@@ -63,10 +64,23 @@ public class QubitBlock extends Block {
         return number.doubleValue();
     }
 
+    public static void setStateVector(double[] newvector, BlockPos pos){
+        POS_HASH_TO_VECTOR.put(pos.hashCode(), newvector);
+    }
+    public static double[] getStateVector(BlockPos pos){
+        if(!POS_HASH_TO_VECTOR.containsKey(pos.hashCode())){
+            POS_HASH_TO_VECTOR.put(pos.hashCode(), defaultState.clone());
+        }
+        return POS_HASH_TO_VECTOR.get(pos.hashCode());
+    }
+
     public static void printState(Level level, Player player, double[] arr, String label) {
         if (level.isClientSide()) {
             player.sendMessage(new TextComponent((label + " state: " + arr[0]) + " |0>  +  " + (arr[1]) + " |1>"), player.getUUID());
         }
     }
 
+    public BlockPos supplyQubit(BlockPos pos){
+        return pos;
+    }
 }

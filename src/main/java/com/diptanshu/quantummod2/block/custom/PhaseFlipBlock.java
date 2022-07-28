@@ -15,7 +15,6 @@ public class PhaseFlipBlock extends GateBlock {
     // Create the Z-gate Matrix using a 2d double array
     double[][] zMatrix = { {1.0, 0.0}, {0.0, -1.0}};
 
-    @Override
     public double[] apply(double[] statevector){
         return matrixMult(statevector, zMatrix);
     }
