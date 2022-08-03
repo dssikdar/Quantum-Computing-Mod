@@ -113,8 +113,9 @@ public abstract class GateBlock extends Block {
             }
             if (directionalBlock instanceof QubitRegisterBlock) {
                 QubitRegisterBlock registerBlock = (QubitRegisterBlock) directionalBlock;
-                registerBlock.qRegStateVector.replace(face,
-                        this.apply(registerBlock.qRegStateVector.get(face)));
+                //registerBlock.qRegStateVector.replace(face,
+                //        this.apply(registerBlock.qRegStateVector.get(face)));
+                registerBlock.setRegisterState(face, this.apply(registerBlock.getRegisterState(face)));
             }
         }
     }
