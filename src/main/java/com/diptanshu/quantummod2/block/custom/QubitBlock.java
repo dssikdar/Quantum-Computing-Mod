@@ -30,7 +30,7 @@ import java.util.Map;
 public class QubitBlock extends Block implements QubitReferencer {
 
     public static final double[] defaultState = {1.0D, 0.0D};
-    public static Map<Integer, double[]> POS_HASH_TO_VECTOR = new HashMap<Integer, double[]>();
+    public static HashMap<Integer, double[]> POS_HASH_TO_VECTOR = new HashMap<Integer, double[]>();
 
     public QubitBlock(Properties properties) {
         super(properties);

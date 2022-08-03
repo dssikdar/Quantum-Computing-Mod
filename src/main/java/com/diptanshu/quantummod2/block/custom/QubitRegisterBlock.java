@@ -1,5 +1,6 @@
 package com.diptanshu.quantummod2.block.custom;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -13,20 +14,23 @@ import java.util.HashMap;
 
 import static com.diptanshu.quantummod2.block.custom.QubitBlock.round;
 
-public class QubitRegisterBlock extends Block {
+public class QubitRegisterBlock extends Block implements QregReferencer {
 
     public QubitRegisterBlock(Properties properties) {
         super(properties);
     }
 
+    public static final double[] voidState = {0.0D, 0.0D};
+    public static final double[] defaultState = {1.0D, 0.0D};
+
     // Create a Java hashmap to store all the amplitudes for all qubits in the register
-    public HashMap<String, double[]> qRegStateVector = new HashMap<String, double[]>();
+    public static HashMap<String, double[]> qRegStateVector = new HashMap<String, double[]>();
 
     // Create a Java ArrayList to store order of qubits allocated in the register
-    public ArrayList<String> listOfQubitFaces = new ArrayList<String>();
+    public static ArrayList<String> listOfQubitFaces = new ArrayList<String>();
 
     // Create a Java ArrayList that stores the tensor product for the quantum register
-    public ArrayList<Double> tensorProd = new ArrayList<Double>();
+    public static ArrayList<Double> tensorProd = new ArrayList<Double>();
 
     /** Purpose: Upon placing the QubitRegisterBlock in the MC environment, initialize qRegStateVector with
      *  initial values to be initialized properly when qubit is allocated. Also clears list of any previously
@@ -41,11 +45,11 @@ public class QubitRegisterBlock extends Block {
         Level pLevel = pContext.getLevel();
 
         // Initializing the Quantum Register Hashmap
-        qRegStateVector.put("up", new double[]{0.0, 0.0});
-        qRegStateVector.put("north", new double[]{0.0, 0.0});
-        qRegStateVector.put("south", new double[]{0.0, 0.0});
-        qRegStateVector.put("east", new double[]{0.0, 0.0});
-        qRegStateVector.put("west", new double[]{0.0, 0.0});
+        qRegStateVector.put("up", voidState);
+        qRegStateVector.put("north", voidState);
+        qRegStateVector.put("south", voidState);
+        qRegStateVector.put("east", voidState);
+        qRegStateVector.put("west", voidState);
 
         // Clear the list of allocated qubits
         listOfQubitFaces.clear();
@@ -56,11 +60,18 @@ public class QubitRegisterBlock extends Block {
         return super.getStateForPlacement(pContext);
     }
 
+    public static void addToListOfQubitFaces(String face) {
+        listOfQubitFaces.add(face);
+    }
+    public static ArrayList<String> getListOfQubitFaces() {
+        return listOfQubitFaces;
+    }
+
     /** Purpose: Calculates Tensor Product of the Quantum Register
      * @param
      * @return void
      */
-    public void tensorProduct () {
+    public static void setTensorProduct (ArrayList<Double> tensorProd) {
         tensorProd.clear();
 
         // Temporary ArrayList to store intermediate tensor products
@@ -91,7 +102,10 @@ public class QubitRegisterBlock extends Block {
                 }
             }
         }
+    }
 
+    public static ArrayList<Double> getTensorProduct() {
+        return tensorProd;
     }
 
     public static void printRegisterState(Level level, Player player, HashMap<String, double[]> register, String direction) {
@@ -99,5 +113,21 @@ public class QubitRegisterBlock extends Block {
             player.sendMessage(new TextComponent(direction.toUpperCase() + register.get(direction)[0] +
                     " |0> + " + register.get(direction)[1] + " |1>"), player.getUUID());
         }
+    }
+
+    public static void setRegisterState(String blockFace, double[] newvector){
+        qRegStateVector.put(blockFace, newvector);
+    }
+
+    public static double[] getRegisterState(String blockFace){
+        if(!qRegStateVector.containsKey(blockFace)){
+            qRegStateVector.put(blockFace, defaultState.clone());
+        }
+        return qRegStateVector.get(blockFace);
+    }
+
+    @Override
+    public BlockPos supplyRegister (BlockPos pos) {
+        return pos;
     }
 }
