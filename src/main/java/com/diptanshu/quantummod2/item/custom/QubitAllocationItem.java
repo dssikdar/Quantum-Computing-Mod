@@ -46,17 +46,19 @@ public class QubitAllocationItem extends Item
         if (pLevel.isClientSide()) {
             if (clickedBlock instanceof QubitRegisterBlock) {
                 QubitRegisterBlock registerBlock = QubitRegisterBlock.class.cast(clickedBlock);
-                if (registerBlock.listOfQubitFaces.contains(face)) {
+                if (registerBlock.getListOfQubitFaces().contains(face)) {
                     player.sendMessage(new TextComponent("Already allocated"), player.getUUID());
                 }
                 else {
-                    registerBlock.listOfQubitFaces.add(face);
+                    registerBlock.addToListOfQubitFaces(face);
                 }
-                player.sendMessage(new TextComponent("qRegs: " + registerBlock.listOfQubitFaces), player.getUUID());
-                registerBlock.qRegStateVector.replace(face, new double[]{1.0, 0.0});
+                player.sendMessage(new TextComponent("qRegs: " + registerBlock.getListOfQubitFaces()), player.getUUID());
+                //registerBlock.qRegStateVector.replace(face, new double[]{1.0, 0.0});
+                registerBlock.getRegisterState(face)[0] = 1.0;
+                registerBlock.getRegisterState(face)[1] = 0.0;
                 player.sendMessage(new TextComponent("Face: " + face + " | " +
-                        registerBlock.qRegStateVector.get(face)[0] + " |0> & " +
-                        registerBlock.qRegStateVector.get(face)[1] + " |1>"), player.getUUID());
+                        registerBlock.getRegisterState(face)[0] + " |0> & " +
+                        registerBlock.getRegisterState(face)[1] + " |1>"), player.getUUID());
             }
         }
 
