@@ -53,9 +53,9 @@ public class MeasurementItem extends Item
             if (clickedBlock instanceof QubitRegisterBlock) {
                 QubitRegisterBlock registerBlock = QubitRegisterBlock.class.cast(clickedBlock);
                 player.sendMessage(new TextComponent("Direction: " + face + " | " +
-                        registerBlock.qRegStateVector.get(face)[0] + " |0> + " +
-                        registerBlock.qRegStateVector.get(face)[1] + " |1>"), player.getUUID());
-                player.sendMessage(new TextComponent("List of Qubits: " + registerBlock.listOfQubitFaces), player.getUUID());
+                        registerBlock.getRegisterState(face)[0] + " |0> + " +
+                        registerBlock.getRegisterState(face)[1] + " |1>"), player.getUUID());
+                player.sendMessage(new TextComponent("List of Qubits: " + registerBlock.getListOfQubitFaces()), player.getUUID());
 
                 /** Debug: Print full hashmap
                 player.sendMessage(new TextComponent("UP: " + registerBlock.qRegStateVector.get("up")[0]), player.getUUID());
@@ -70,8 +70,8 @@ public class MeasurementItem extends Item
                 player.sendMessage(new TextComponent("WEST: " + registerBlock.qRegStateVector.get("west")[1]), player.getUUID());
                  */
 
-                registerBlock.tensorProduct();
-                player.sendMessage(new TextComponent("Tensor Prod: " + registerBlock.tensorProd), player.getUUID());
+                registerBlock.setTensorProduct(registerBlock.getTensorProduct());
+                player.sendMessage(new TextComponent("Tensor Prod: " + registerBlock.getTensorProduct()), player.getUUID());
             }
 
         }
